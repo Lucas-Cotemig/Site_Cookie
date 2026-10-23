@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Meu Cookie </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Press+Start+2P&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sen:wght@400..800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Press+Start+2P&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sen:wght@400..800&family=VT323&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="principal_page">
+        <header>
+            <div class="roll_text">
+                <span class="roll_content"> Frete grátis acima de R$50 • Cookies quentinhos todo dia • </span>
+            </div>
+
+            <div class="header_all">
+                <div class="header_top">
+                    <!-- Marca -->
+                    <div class="text_mark">
+                        <p><span>MEU-</span><span>COOKIE</span></p>
+                    </div>
+                    <!-- Pesquisa -->
+                    <input type="text" placeholder="Buscar Cookies...">
+                    <!-- Botão de Busca -->
+                    <div class="button_search">
+                        <button>
+                            <img src="" alt="">
+                        </button>
+                    </div>
+                    <!-- Modo Claro e Escuro -->
+                    <div class="change_mode">
+                        <button>
+                            <img src="" alt="">
+                        </button>
+                    </div>
+                    <!-- Carrinho -->
+                    <div class="shopping_cart">
+                        <button>
+                            <img src="" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="header_bottom">
+                    <nav class="menu">
+                        <a href="#" class="active">INÍCIO</a>
+                        <a href="#">COOKIES</a>
+                        <a href="#">PEDIDOS</a>
+                        <a href="#">PERFIL</a>
+                    </nav>
+                    <div class="auth">
+                        <button class="login">LOGIN</button>
+                        <button class="register">CADASTRO</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="body_site">
+            <div class="first_banner">
+                <div class="window_bar">
+                    <span>BEM-VINDO.EXE</span>
+                    <div class="window_buttons">
+                        <span>_</span>
+                        <span>▫</span>
+                        <span>✕</span>
+                    </div>
+                </div>
+
+                <div class="banner_content">
+                    <div class="text_banner">
+                        <p><span>COOKIES</span><br><span>ASSADOS</span><br><span>NA HORA</span></p>
+                        <p><span>Minhas receitas, entregues quentinhas na sua <br>porta em até 40 minutos. Entre e
+                                escolha o <br>seu sabor</span></p>
+                        <div class="banner_buttons">
+                            <a href="#" class="view_cookies">VER COOKIES</a>
+                            <a href="#" class="create_account">CRIAR CONTA</a>
+                        </div>
+                    </div>
+                    <!-- Imagem -->
+                    <div class="img_banner">
+                    </div>
+                    <!-- Imagem -->
+                </div>
+            </div>
+
+            <div class="play_game">
+                <p>QUER JOGAR UM JOGO?</p>
+                <a href="#">JOGAR</a>
+            </div>
+
+
+
+        </div>
+
+        <!-- ===== JOGO CHUVA DE COOKIES (abre ao clicar em JOGAR, CLARAMENTE FEITO COM IA) ===== -->
+        <div class="cg-fundo" id="cg-fundo" hidden>
+            <div class="cg-win" id="cg-win" role="dialog" aria-modal="true" aria-label="Jogo Chuva de Cookies">
+                <div class="cg-bar"><span>JOGO.EXE</span><button type="button" class="cg-x" id="cg-close"
+                        aria-label="Fechar o jogo">[X]</button></div>
+                <div class="cg-hud">
+                    <span><b>PONTOS</b><span id="cg-score">000</span></span>
+                    <span class="cg-hearts" id="cg-hearts" aria-label="3 vidas">♥♥♥</span>
+                    <span><b>RECORDE</b><span id="cg-best">000</span></span>
+                </div>
+                <div class="cg-stage">
+                    <canvas class="cg-canvas" id="cg-canvas" width="160" height="120" tabindex="-1"></canvas>
+
+                    <div class="cg-over" id="cg-title">
+                        <h3>Chuva de Cookies</h3>
+                        <p>Mova o pote para pegar os cookies. Fuja dos queimados!</p>
+                        <div class="cg-legend">
+                            <span><canvas data-spr="cookie" width="8" height="8"></canvas>+1</span>
+                            <span><canvas data-spr="gold" width="8" height="8"></canvas>+5</span>
+                            <span><canvas data-spr="burnt" width="8" height="8"></canvas>perde vida</span>
+                        </div>
+                        <button type="button" class="cg-btn" id="cg-start">Press start</button>
+                        <span class="cg-help">Setas ← → ou arraste o dedo / mouse</span>
+                    </div>
+
+                    <div class="cg-over" id="cg-end" hidden>
+                        <h3>Game over</h3>
+                        <span class="cg-record" id="cg-newrec" hidden>★ Novo recorde! ★</span>
+                        <p id="cg-endtxt">Você pegou 0 cookies.</p>
+                        <div class="cg-btns">
+                            <button type="button" class="cg-btn" id="cg-again">Jogar de novo</button>
+                            <a class="cg-btn cg-ghost" href="#" id="cg-shop">Pedir cookies de verdade</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM MINIGAME BISCOITOS -->
+
+        <div class="mais_vendidos">
+            <p>MAIS VENDIDOS</p>
+            <div class="produtos">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <div class="biscoito_3d">
+            <p>UM EXEMPLO DO NOSSO BISCOITO</p>
+            <button type="button" class="janela_3d" id="abrir_3d" aria-label="Abrir o biscoito 3D">
+                <span class="window_bar">
+                    <span>BISCOITO.EXE</span>
+                    <span>[ABRIR]</span>
+                </span>
+                <model-viewer class="cookie-3d" src="cookie3D.glb"
+                    alt="Cookie de chocolate em 3D no estilo pixel art" auto-rotate
+                    rotation-per-second="40deg" camera-orbit="45deg 60deg auto" disable-zoom interaction-prompt="none">
+                </model-viewer>
+            </button>
+        </div>
+
+        <!-- Janela do biscoito 3D (abre ao clicar no biscoito) -->
+        <div class="fundo_3d" id="fundo_3d" hidden>
+            <div class="janela_3d_aberta" role="dialog" aria-modal="true" aria-label="Biscoito em 3D">
+                <div class="window_bar">
+                    <span>BISCOITO.EXE</span>
+                    <button type="button" id="fechar_3d" aria-label="Fechar">[X]</button>
+                </div>
+                <model-viewer class="cookie-3d-grande" src="cookie3D.glb"
+                    alt="Cookie de chocolate em 3D no estilo pixel art" camera-controls auto-rotate
+                    rotation-per-second="40deg" camera-orbit="45deg 60deg auto" interaction-prompt="none">
+                </model-viewer>
+                <p>Arraste para girar o biscoito</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <div class="rodape_colunas">
+            <div class="rodape_coluna">
+                <h4>Meu Cookie</h4>
+                <p>Cookies artesanais assados na hora e entregues quentinhos desde 2020.</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>CONTATO</h4>
+                <p>(31) 99999-9999</p>
+                <p>lucdavisan@gmail.com</p>
+                <p>Seg a Sáb · 10h às 22h</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>VISITANTES</h4>
+                <span class="contador">9999999</span>
+            </div>
+        </div>
+
+        <div class="rodape_copy">
+            <p>Lucas Davi - Trabalho Interdisciplinar</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="game.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+</body>
+
+</html>
