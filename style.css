@@ -17,57 +17,121 @@ body {
     border-radius: 2px;
 }
 
-#principal_page .roll_text {
-    width: 100%;
-    height: 5vh;
-    background-color: #EE1E52;
-}
-
-#principal_page .header_all {
+/* ===== CABEÇALHO ===== */
+header .header_all {
     width: 100%;
     border-bottom: 1.5px black solid;
     background-color: #FFFAFA;
     box-sizing: border-box;
-    padding: 3vh 0 2.5vh 33vh;
+    padding: 3vh 0 2.5vh;
     display: grid;
-    justify-content: start;
+    justify-content: center;
     row-gap: 2.5vh;
 }
 
-#principal_page .header_top {
+header .header_top {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
 }
 
-#principal_page .header_bottom {
+header .header_bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#principal_page .header_bottom .menu {
+header .text_mark {
+    line-height: 2.2vh;
+    color: black;
+    text-decoration: none;
+}
+
+header .text_mark span {
+    font-family: "Press Start 2P", system-ui;
+    font-size: 2.2vh;
+}
+
+header .text_mark span:first-child {
+    color: #EE1E52;
+}
+
+header .header_top input {
+    box-sizing: border-box;
+    padding-left: 10px;
+    margin-left: 2vh;
+    height: 6vh;
+    width: 97vh;
+    background-color: #FFFAFA;
+    border: 1.8px black solid;
+    font-family: "VT323", monospace;
+    font-size: 20px;
+    color: black;
+    border-radius: 0;
+}
+
+header .button_search,
+header .change_mode,
+header .shopping_cart {
+    height: 5.5vh;
+    margin-left: 1vh;
+    border: 1.8px black solid;
+    box-shadow: 3px 3px 0 black;
+    background-color: #FFB5C0;
+}
+
+header .button_search {
+    width: 6vh;
+    margin-left: 2.5vh;
+    background-color: #EE1E52;
+}
+
+header .change_mode {
+    width: 6vh;
+}
+
+header .shopping_cart {
+    width: 9vh;
+}
+
+header .button_search a,
+header .change_mode a,
+header .shopping_cart a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+header .menu {
     display: flex;
     gap: 3vh;
 }
 
-#principal_page .header_bottom .menu a {
+header .menu a {
     font-family: "Press Start 2P", system-ui;
     font-size: 1.5vh;
     color: black;
     text-decoration: none;
 }
 
-#principal_page .header_bottom .menu a.active {
+header .menu a:hover,
+header .menu a.active {
     color: #EE1E52;
     text-decoration: underline;
 }
 
-#principal_page .header_bottom .auth {
+header .auth {
     display: flex;
     gap: 1vh;
 }
 
-#principal_page .header_bottom .auth button {
+header .auth a {
+    display: inline-block;
+    text-decoration: none;
     font-family: "Press Start 2P", system-ui;
     font-size: 1.5vh;
     padding: 1.5vh 2.5vh;
@@ -76,113 +140,18 @@ body {
     cursor: pointer;
 }
 
-#principal_page .header_bottom .auth .login {
+header .auth .login {
     background-color: #FFB5C0;
     color: black;
 }
 
-#principal_page .header_bottom .auth .register {
+header .auth .register {
     background-color: #EE1E52;
     color: white;
 }
 
-#principal_page .header_all span:nth-last-of-type(2) {
-    color: #EE1E52;
-    font-family: "Press Start 2P", system-ui;
-    font-size: 2.2vh;
-}
-
-#principal_page .header_all span:nth-last-of-type(1) {
-    font-family: "Press Start 2P", system-ui;
-    font-size: 2.2vh;
-}
-
-#principal_page .header_all .text_mark {
-    line-height: 2.2vh;
-}
-
-#principal_page .header_all input {
-    padding-left: 10px;
-    margin-left: 2vh;
-    margin-top: -1.9vh;
-    height: 6vh;
-    width: 97vh;
-    background-color: #FFFAFA;
-    border: 1.8px black solid;
-    font-family: "VT323", monospace;
-    font-size: 20px;
-    color: white;
-    border-radius: 0;
-}
-
-#principal_page .header_all .button_search {
-    background-color: #EE1E52;
-    width: 6vh;
-    height: 5.5vh;
-    margin-top: -1.7vh;
-    margin-left: 2.5vh;
-    border: 1.5px black solid;
-    box-shadow: 3px 3px 0 black;
-}
-
-#principal_page .header_all .button_search button {
-    width: 6vh;
-    height: 5.5vh;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-#principal_page .header_all .change_mode {
-    width: 6vh;
-    height: 5.5vh;
-    background-color: #FFB5C0;
-    margin-top: -1.7vh;
-    margin-left: 1vh;
-    border: 1.8px black solid;
-    box-shadow: 3px 3px 0 black;
-}
-
-#principal_page .header_all .change_mode button {
-    width: 6vh;
-    height: 5.5vh;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-#principal_page .header_all .shopping_cart {
-    width: 9vh;
-    height: 5.5vh;
-    background-color: #FFB5C0;
-    margin-top: -1.7vh;
-    margin-left: 1vh;
-    border: 1.8px black solid;
-    box-shadow: 3px 3px 0 black;
-}
-
-#principal_page .header_all .shopping_cart button {
-    width: 9vh;
-    height: 5.5vh;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-#principal_page .roll_text {
-    width: 100%;
-    height: 5vh;
-    background-color: #EE1E52;
-    overflow: hidden;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-}
-
-#principal_page .roll_content {
-    display: inline-block;
-    color: white;
-    font-family: 'VT323', monospace;
+main {
+    min-height: 60vh;
 }
 
 #principal_page #body_site {
@@ -363,6 +332,8 @@ body {
 
 #principal_page .biscoito_3d .janela_3d {
     display: block;
+    box-sizing: border-box;
+    text-decoration: none;
     width: 400px;
     padding: 0;
     background-color: white;
@@ -423,8 +394,9 @@ body {
     box-shadow: 8px 8px 0 #000;
 }
 
-#principal_page .fundo_3d .window_bar button {
+#principal_page .fundo_3d .window_bar a {
     font: inherit;
+    text-decoration: none;
     color: #FFB5C0;
     background: transparent;
     border: 0;
@@ -432,7 +404,7 @@ body {
     cursor: pointer;
 }
 
-#principal_page .fundo_3d .window_bar button:hover {
+#principal_page .fundo_3d .window_bar a:hover {
     background-color: #EE1E52;
     color: white;
 }
@@ -452,14 +424,14 @@ body {
     border-top: 2px #2B0F14 solid;
 }
 
-.rodape {
+footer {
     width: 100%;
     background-color: #66323B;
     color: #FFB5C0;
     font-family: "VT323", monospace;
 }
 
-.rodape .rodape_colunas {
+footer .rodape_colunas {
     width: 65%;
     margin: 0 auto;
     padding: 5vh 0 4vh;
@@ -468,30 +440,30 @@ body {
     gap: 5vh;
 }
 
-.rodape .rodape_coluna {
+footer .rodape_coluna {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.rodape h4 {
+footer h4 {
     font-family: "Press Start 2P", system-ui;
     font-size: 16px;
     font-weight: normal;
     margin-bottom: 18px;
 }
 
-.rodape p {
+footer p {
     font-size: 22px;
     line-height: 38px;
 }
 
-.rodape small {
+footer small {
     font-size: 15px;
     opacity: 0.85;
 }
 
-.rodape .contador {
+footer .contador {
     font-family: "Press Start 2P", system-ui;
     font-size: 14px;
     color: #EE1E52;
@@ -502,51 +474,186 @@ body {
     letter-spacing: 1px;
 }
 
-.rodape .cursor_piscando {
+footer .cursor_piscando {
     animation: rodape-pisca 1s steps(1) infinite;
 }
 
-@keyframes rodape-pisca {
-    50% {
-        opacity: 0;
-    }
-}
-
-.rodape .rodape_copy {
+footer .rodape_copy {
     border-top: 2px rgba(255, 181, 192, 0.35) solid;
     padding: 2.5vh 0;
     text-align: center;
 }
 
-.rodape .rodape_copy p {
+footer .rodape_copy p {
     font-size: 16px;
     line-height: normal;
 }
 
-@media (max-width: 800px) {
-    .rodape .rodape_colunas {
+@media (max-width: 700px) {
+    footer .rodape_colunas {
         width: auto;
         padding: 5vh 16px 4vh;
         grid-template-columns: 1fr;
     }
 }
 
+#cardapio_cookie main .bar_search_e_tals p{
+    font-family: var(--fonte-Player);
+    color: #EE1E52;
+    margin-top: 5vh;
+    margin-left: 30vh;
+    font-size: 23px;
+}
+
+#cardapio_cookie main .search_bar-div{
+    display: flex;
+}
+
+#cardapio_cookie main .search_bar-div input{
+    margin-left: 30vh;
+    margin-top: 3vh;
+    height: 6vh;
+    width: 45vh;
+    border: 2.5px black solid;
+    font-family: var(--fonte-VT3);
+    font-size: 18px;
+    padding-left: 2vh;
+}
+
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(2){
+    border: 2px black solid;
+    box-shadow: 3px 3px 0 black;
+    margin-left: 3vh;
+    margin-top: 3vh;
+    width: 15vh;
+    height: 6vh;
+    background-color: #f9c5d1;
+}
 
 
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(1){
+    border: 2px black solid;
+    box-shadow: 3px 3px 0 black;
+    margin-left: 3vh;
+    margin-top: 3vh;
+    width: 15vh;
+    height: 6vh;
+    background-color: #f9c5d1;
+}
 
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(3){
+    border: 2px black solid;
+    box-shadow: 3px 3px 0 black;
+    margin-left: 3vh;
+    margin-top: 3vh;
+    width: 15vh;
+    height: 6vh;
+    background-color: #f9c5d1;
+}
 
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(4){
+    border: 2px black solid;
+    box-shadow: 3px 3px 0 black;
+    margin-left: 3vh;
+    margin-top: 3vh;
+    width: 15vh;
+    height: 6vh;
+    background-color: #EE1E52;
+}
 
+#cardapio_cookie main .mother_cookies .cookies{
+    box-sizing: border-box;   
+    width: 100%;
+    margin-top: 4vh;
+    padding: 4vh 0;
+    display: grid;
+    grid-template-columns: repeat(4, 26vh);
+    justify-content: center;
+    gap: 5vh;
+}
 
+#cardapio_cookie main .card_cookie {
+    box-sizing: border-box;
+    width: 26vh;
+    height: 50vh;
+    background-color: white;
+    border: 2px #2B0F14 solid;
+    box-shadow: 5px 5px 0 #2B0F14;
+    display: flex;
+    flex-direction: column;
+}
 
+#cardapio_cookie main .card_img {
+    height: 22vh;
+    background-color: #FFB5C0;
+    border-bottom: 2px #2B0F14 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+#cardapio_cookie main .card_img img {
+    width: 75%;
+    image-rendering: pixelated;
+}
 
+#cardapio_cookie main .card_info {
+    flex: 1;
+    padding: 1.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8vh;
+}
 
+#cardapio_cookie main .card_tag {
+    font-family: var(--fonte-VT3);
+    font-size: 1.6vh;
+    background-color: #FFB5C0;
+    color: #2B0F14;
+    padding: 0.2vh 0.6vh;
+}
 
+#cardapio_cookie main .card_info h3 {
+    font-family: var(--fonte-Player);
+    font-size: 1.2vh;
+    font-weight: normal;
+    color: #2B0F14;
+}
 
+#cardapio_cookie main .card_info p {
+    font-family: var(--fonte-VT3);
+    font-size: 1.9vh;
+    color: #5E2C35;
+}
 
+#cardapio_cookie main .card_preco {
+    font-family: var(--fonte-VT3);
+    font-size: 2.6vh;
+    color: #EE1E52;
+}
 
+#cardapio_cookie main .card_info a {
+    display: block;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    margin-top: auto;
+    width: 100%;
+    padding: 1.2vh 0;
+    font-family: var(--fonte-Player);
+    font-size: 1.1vh;
+    color: white;
+    background-color: #EE1E52;
+    border: 2px #2B0F14 solid;
+    box-shadow: 3px 3px 0 #2B0F14;
+    cursor: pointer;
+}
 
-
+#cardapio_cookie main .card_info a:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #2B0F14;
+}
 
 
 
@@ -579,8 +686,8 @@ body {
     --cg-wine-deep: #3d1c23;
     --cg-cream: #fff3e6;
     --cg-gold: #ffd23f;
-    --cg-pixel: "Pixelify Sans", "Courier New", monospace;
-    --cg-mono: "VT323", "Courier New", ui-monospace, monospace;
+    --fonte-VT3: "VT323", "Courier New", ui-monospace, monospace;
+    --fonte-Player: "Press Start 2P", system-ui;
 }
 
 body.cg-travado {
@@ -664,6 +771,7 @@ body.cg-travado {
     color: var(--cg-cream);
     border: 0;
     cursor: pointer;
+    text-decoration: none;
     padding: 2px 8px;
     letter-spacing: .06em
 }
@@ -837,5 +945,446 @@ body.cg-travado {
     .cg-record,
     .cg-fundo:not([hidden]) {
         animation: none
+    }
+}
+
+@media (max-width: 700px) {
+
+    header .header_all {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 24px 16px;
+        row-gap: 16px;
+    }
+
+    header .header_top {
+        gap: 10px;
+    }
+
+    header .header_top input {
+        flex: 1;
+        min-width: 0;
+        width: auto;
+        height: 44px;
+        margin-left: 12px;
+    }
+
+    header .button_search,
+    header .change_mode,
+    header .shopping_cart {
+        flex-shrink: 0;
+        height: 44px;
+        width: 44px;
+        margin-left: 0;
+    }
+
+    header .shopping_cart {
+        width: 60px;
+    }
+
+    header .text_mark span {
+        font-size: 16px;
+    }
+
+    header .menu a,
+    header .auth a {
+        font-size: 11px;
+    }
+
+    header .auth a {
+        padding: 12px 16px;
+    }
+
+    #principal_page {
+        height: auto;
+        padding-bottom: 64px;
+    }
+
+    #principal_page #body_site {
+        min-height: 0;
+    }
+
+    #principal_page #body_site .first_banner {
+        width: calc(100% - 48px);
+        height: auto;
+        min-height: 380px;
+    }
+
+    #principal_page #body_site .play_game {
+        height: auto;
+        margin-top: 48px;
+    }
+
+    #principal_page .mais_vendidos {
+        margin-top: 56px;
+    }
+
+    #principal_page .mais_vendidos p {
+        margin-left: 24px;
+    }
+
+    #principal_page .mais_vendidos .produtos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 0 24px;
+    }
+
+    #principal_page .mais_vendidos .produtos div {
+        width: auto;
+        height: 260px;
+    }
+
+    #principal_page .biscoito_3d {
+        margin-top: 64px;
+    }
+
+    /* Cardápio */
+    #cardapio_cookie main .bar_search_e_tals p {
+        margin-left: 24px;
+    }
+
+    #cardapio_cookie main .search_bar-div {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 0 24px;
+        margin-top: 20px;
+    }
+
+    #cardapio_cookie main .search_bar-div input {
+        box-sizing: border-box;
+        flex: 1 1 260px;
+        width: auto;
+        height: 44px;
+        margin: 0;
+    }
+
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(1),
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(2),
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(3),
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(4) {
+        flex: 0 0 80px;
+        height: 44px;
+        width: auto;
+        margin: 0;
+    }
+
+    #cardapio_cookie main .mother_cookies .cookies {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 24px;
+        padding: 24px;
+    }
+
+    #cardapio_cookie main .card_cookie {
+        width: auto;
+        height: auto;
+        min-height: 360px;
+    }
+
+    #cardapio_cookie main .card_img {
+        height: 160px;
+    }
+
+    #cardapio_cookie main .card_info {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    #cardapio_cookie main .card_tag {
+        font-size: 16px;
+        padding: 2px 6px;
+    }
+
+    #cardapio_cookie main .card_info h3 {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    #cardapio_cookie main .card_info p {
+        font-size: 18px;
+    }
+
+    #cardapio_cookie main .card_preco {
+        font-size: 22px;
+    }
+
+    #cardapio_cookie main .card_info a {
+        font-size: 10px;
+        padding: 12px 0;
+    }
+
+    /* Cabeçalho */
+    header .header_all {
+        padding: 16px 16px 14px;
+        row-gap: 14px;
+    }
+
+    header .header_top {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    header .text_mark {
+        flex-basis: 100%;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    header .header_top input {
+        margin-left: 0;
+        font-size: 18px;
+    }
+
+    header .button_search {
+        margin-left: 0;
+    }
+
+    header .shopping_cart {
+        width: 52px;
+    }
+
+    header .header_bottom {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    header .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 18px;
+    }
+
+    header .menu a {
+        font-size: 10px;
+        padding: 4px 0;
+    }
+
+    header .auth {
+        width: 100%;
+        gap: 10px;
+    }
+
+    header .auth a {
+        flex: 1;
+        text-align: center;
+        font-size: 10px;
+        padding: 12px 8px;
+    }
+
+    /* Banner */
+    #principal_page #body_site .first_banner {
+        width: calc(100% - 32px);
+        box-sizing: border-box;
+        margin-top: 24px;
+        min-height: 0;
+    }
+
+    #principal_page #body_site .first_banner .window_bar,
+    #principal_page .biscoito_3d .window_bar,
+    #principal_page .fundo_3d .window_bar {
+        height: 32px;
+        font-size: 9px;
+        padding: 0 10px;
+    }
+
+    #principal_page #body_site .first_banner .banner_content {
+        flex-direction: column;
+    }
+
+    #principal_page #body_site .first_banner .img_banner {
+        order: -1;
+        width: 100%;
+        height: 200px;
+        border-bottom: 2px black solid;
+    }
+
+    #principal_page #body_site .first_banner .text_banner {
+        width: 100%;
+        height: auto;
+        padding: 20px 16px 24px;
+        box-sizing: border-box;
+    }
+
+    #principal_page #body_site .first_banner .text_banner p:nth-last-of-type(2) {
+        font-size: 22px;
+        line-height: 1.3;
+        margin: 0;
+    }
+
+    #principal_page #body_site .first_banner .text_banner p:nth-last-of-type(1) {
+        font-size: 20px;
+        margin: 14px 0 0;
+    }
+
+    #principal_page #body_site .first_banner .text_banner p:nth-last-of-type(1) br {
+        display: none;
+    }
+
+    #principal_page #body_site .first_banner .text_banner .banner_buttons {
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 20px 0 0;
+    }
+
+    #principal_page #body_site .first_banner .text_banner .banner_buttons a {
+        flex: 1 1 140px;
+        text-align: center;
+        font-size: 10px;
+        padding: 14px 10px;
+    }
+
+    /* Jogo */
+    #principal_page #body_site .play_game {
+        margin-top: 40px;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    #principal_page #body_site .play_game p {
+        font-size: 13px;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    #principal_page #body_site .play_game a {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 320px;
+        margin-top: 12px;
+        padding: 14px 0;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    /* Mais vendidos */
+    #principal_page .mais_vendidos {
+        margin-top: 48px;
+    }
+
+    #principal_page .mais_vendidos p {
+        margin-left: 16px;
+        font-size: 16px;
+        white-space: normal;
+    }
+
+    #principal_page .mais_vendidos .produtos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 0 16px;
+    }
+
+    #principal_page .mais_vendidos .produtos div {
+        height: 220px;
+        box-shadow: 5px 5px 0 #000;
+    }
+
+    /* Biscoito 3D */
+    #principal_page .biscoito_3d {
+        margin-top: 48px;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    #principal_page .biscoito_3d p {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 24px;
+    }
+
+    #principal_page .biscoito_3d .janela_3d {
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 5px 5px 0 #2B0F14;
+    }
+
+    #principal_page .biscoito_3d .cookie-3d {
+        height: 280px;
+    }
+
+    /* Rodapé */
+    footer h4 {
+        font-size: 13px;
+    }
+
+    footer p {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    /* Cardápio */
+    #cardapio_cookie main .bar_search_e_tals p {
+        margin: 28px 0 0 16px;
+        font-size: 18px;
+    }
+
+    #cardapio_cookie main .search_bar-div {
+        padding: 0 16px;
+        gap: 10px;
+    }
+
+    #cardapio_cookie main .search_bar-div input {
+        flex-basis: 100%;
+    }
+
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(1),
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(2),
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(3),
+    #cardapio_cookie main .search_bar-div a:nth-last-of-type(4) {
+        flex: 1 1 0;
+        min-width: 0;
+        height: 40px;
+    }
+
+    #cardapio_cookie main .mother_cookies .cookies {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 16px;
+        margin-top: 8px;
+    }
+
+    #cardapio_cookie main .card_cookie {
+        min-height: 0;
+        box-shadow: 4px 4px 0 #2B0F14;
+    }
+
+    #cardapio_cookie main .card_img {
+        height: 120px;
+    }
+
+    #cardapio_cookie main .card_info {
+        padding: 10px;
+        gap: 6px;
+    }
+
+    #cardapio_cookie main .card_tag {
+        font-size: 14px;
+    }
+
+    #cardapio_cookie main .card_info h3 {
+        font-size: 9px;
+    }
+
+    #cardapio_cookie main .card_info p {
+        font-size: 16px;
+        line-height: 1.1;
+    }
+
+    #cardapio_cookie main .card_preco {
+        font-size: 20px;
+    }
+
+    #cardapio_cookie main .card_info a {
+        font-size: 8px;
+        padding: 10px 0;
+    }
+}
+
+/* Celulares bem pequenos */
+@media (max-width: 380px) {
+
+    #cardapio_cookie main .mother_cookies .cookies,
+    #principal_page .mais_vendidos .produtos {
+        grid-template-columns: 1fr;
     }
 }

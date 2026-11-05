@@ -154,8 +154,8 @@ document.addEventListener('keyup',e=>{
   if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A') keys.left=false;
   if(e.key==='ArrowRight'||e.key==='d'||e.key==='D') keys.right=false;
 });
-$('cg-start').addEventListener('click',start);
-$('cg-again').addEventListener('click',start);
+$('cg-start').addEventListener('click',e=>{ e.preventDefault(); start(); });
+$('cg-again').addEventListener('click',e=>{ e.preventDefault(); start(); });
 
 /* ===== Abrir e fechar a janela ===== */
 function abrir(e){
@@ -171,7 +171,7 @@ function fechar(){
   if(state==='play'){ state='title'; $('cg-title').hidden=false; $('cg-end').hidden=true; }
   openBtn.focus({preventScroll:true});
 }
-$('cg-close').addEventListener('click',fechar);
+$('cg-close').addEventListener('click',e=>{ e.preventDefault(); fechar(); });
 $('cg-shop').addEventListener('click',fechar);
 openBtn.addEventListener('click',abrir);
 // clicar no fundo escuro (fora da janela) também fecha

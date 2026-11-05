@@ -22,49 +22,46 @@
 <body>
 
     <div id="principal_page">
+        <!-- Cabeçalho -->
         <header>
-            <div class="roll_text">
-                <span class="roll_content"> Frete grátis acima de R$50 • Cookies quentinhos todo dia • </span>
-            </div>
-
             <div class="header_all">
                 <div class="header_top">
                     <!-- Marca -->
-                    <div class="text_mark">
+                    <a href="index.html" class="text_mark">
                         <p><span>MEU-</span><span>COOKIE</span></p>
-                    </div>
+                    </a>
                     <!-- Pesquisa -->
                     <input type="text" placeholder="Buscar Cookies...">
                     <!-- Botão de Busca -->
                     <div class="button_search">
-                        <button>
+                        <a href="#">
                             <img src="" alt="">
-                        </button>
+                        </a>
                     </div>
                     <!-- Modo Claro e Escuro -->
                     <div class="change_mode">
-                        <button>
+                        <a href="#">
                             <img src="" alt="">
-                        </button>
+                        </a>
                     </div>
                     <!-- Carrinho -->
                     <div class="shopping_cart">
-                        <button>
+                        <a href="#">
                             <img src="" alt="">
-                        </button>
+                        </a>
                     </div>
                 </div>
 
                 <div class="header_bottom">
                     <nav class="menu">
-                        <a href="#" class="active">INÍCIO</a>
-                        <a href="#">COOKIES</a>
-                        <a href="#">PEDIDOS</a>
+                        <a href="index.html" class="active">INÍCIO</a>
+                        <a href="cookie.html">COOKIES</a>
+                        <a href="pedidos.html">PEDIDOS</a>
                         <a href="#">PERFIL</a>
                     </nav>
                     <div class="auth">
-                        <button class="login">LOGIN</button>
-                        <button class="register">CADASTRO</button>
+                        <a href="#" class="login">LOGIN</a>
+                        <a href="#" class="register">CADASTRO</a>
                     </div>
                 </div>
             </div>
@@ -110,8 +107,8 @@
         <!-- ===== JOGO CHUVA DE COOKIES (abre ao clicar em JOGAR, CLARAMENTE FEITO COM IA) ===== -->
         <div class="cg-fundo" id="cg-fundo" hidden>
             <div class="cg-win" id="cg-win" role="dialog" aria-modal="true" aria-label="Jogo Chuva de Cookies">
-                <div class="cg-bar"><span>JOGO.EXE</span><button type="button" class="cg-x" id="cg-close"
-                        aria-label="Fechar o jogo">[X]</button></div>
+                <div class="cg-bar"><span>JOGO.EXE</span><a href="#" class="cg-x" id="cg-close"
+                        aria-label="Fechar o jogo">[X]</a></div>
                 <div class="cg-hud">
                     <span><b>PONTOS</b><span id="cg-score">000</span></span>
                     <span class="cg-hearts" id="cg-hearts" aria-label="3 vidas">♥♥♥</span>
@@ -128,7 +125,7 @@
                             <span><canvas data-spr="gold" width="8" height="8"></canvas>+5</span>
                             <span><canvas data-spr="burnt" width="8" height="8"></canvas>perde vida</span>
                         </div>
-                        <button type="button" class="cg-btn" id="cg-start">Press start</button>
+                        <a href="#" class="cg-btn" id="cg-start">Press start</a>
                         <span class="cg-help">Setas ← → ou arraste o dedo / mouse</span>
                     </div>
 
@@ -137,7 +134,7 @@
                         <span class="cg-record" id="cg-newrec" hidden>★ Novo recorde! ★</span>
                         <p id="cg-endtxt">Você pegou 0 cookies.</p>
                         <div class="cg-btns">
-                            <button type="button" class="cg-btn" id="cg-again">Jogar de novo</button>
+                            <a href="#" class="cg-btn" id="cg-again">Jogar de novo</a>
                             <a class="cg-btn cg-ghost" href="#" id="cg-shop">Pedir cookies de verdade</a>
                         </div>
                     </div>
@@ -158,7 +155,7 @@
 
         <div class="biscoito_3d">
             <p>UM EXEMPLO DO NOSSO BISCOITO</p>
-            <button type="button" class="janela_3d" id="abrir_3d" aria-label="Abrir o biscoito 3D">
+            <a href="#" class="janela_3d" id="abrir_3d" aria-label="Abrir o biscoito 3D">
                 <span class="window_bar">
                     <span>BISCOITO.EXE</span>
                     <span>[ABRIR]</span>
@@ -167,15 +164,14 @@
                     alt="Cookie de chocolate em 3D no estilo pixel art" auto-rotate
                     rotation-per-second="40deg" camera-orbit="45deg 60deg auto" disable-zoom interaction-prompt="none">
                 </model-viewer>
-            </button>
+            </a>
         </div>
 
-        <!-- Janela do biscoito 3D (abre ao clicar no biscoito) -->
         <div class="fundo_3d" id="fundo_3d" hidden>
             <div class="janela_3d_aberta" role="dialog" aria-modal="true" aria-label="Biscoito em 3D">
                 <div class="window_bar">
                     <span>BISCOITO.EXE</span>
-                    <button type="button" id="fechar_3d" aria-label="Fechar">[X]</button>
+                    <a href="#" id="fechar_3d" aria-label="Fechar">[X]</a>
                 </div>
                 <model-viewer class="cookie-3d-grande" src="cookie3D.glb"
                     alt="Cookie de chocolate em 3D no estilo pixel art" camera-controls auto-rotate
@@ -186,8 +182,7 @@
         </div>
     </div>
 
-    <!-- Rodapé -->
-    <footer class="rodape">
+    <footer>
         <div class="rodape_colunas">
             <div class="rodape_coluna">
                 <h4>Meu Cookie</h4>
@@ -212,6 +207,7 @@
         </div>
     </footer>
 
+    <script src="layout.js"></script>
     <script src="script.js"></script>
     <script src="game.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
