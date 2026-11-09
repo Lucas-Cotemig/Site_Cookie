@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Meu Cookie - Carrinho </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="header_all">
+            <div class="header_top">
+                <!-- Marca -->
+                <a href="index.html" class="text_mark">
+                    <p><span>MEU-</span><span>COOKIE</span></p>
+                </a>
+                <!-- Pesquisa -->
+                <input type="text" placeholder="Buscar Cookies...">
+                <!-- Botão de Busca -->
+                <div class="button_search">
+                    <a href="cookie.html">
+                        <img src="img/lupa.png" alt="Buscar">
+                    </a>
+                </div>
+                <!-- Modo Claro e Escuro -->
+                <div class="change_mode">
+                    <a href="#">
+                        <img src="img/lua.png" alt="Mudar para o modo escuro">
+                    </a>
+                </div>
+                <!-- Carrinho -->
+                <div class="shopping_cart">
+                    <a href="carrinho.html">
+                        <img src="img/carrinho.png" alt="Carrinho">
+                    </a>
+                </div>
+            </div>
+
+            <div class="header_bottom">
+                <nav class="menu">
+                    <a href="index.html">INÍCIO</a>
+                    <a href="cookie.html">COOKIES</a>
+                    <a href="pedidos.html">PEDIDOS</a>
+                    <a href="perfil.html">PERFIL</a>
+                </nav>
+                <div class="auth">
+                    <a href="login.html" class="login">LOGIN</a>
+                    <a href="cadastro.html" class="register">CADASTRO</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pagina">
+        <h1 class="titulo_pagina">MEU CARRINHO</h1>
+
+        <div class="carrinho_grid">
+            <div class="janela">
+                <div class="window_bar">
+                    <span>CARRINHO.EXE</span>
+                    <a href="cookie.html">+ ADICIONAR MAIS</a>
+                </div>
+                <div class="janela_conteudo" id="lista_carrinho">
+                    <p class="sem_pedidos" id="carrinho_vazio" hidden>
+                        Seu carrinho está vazio. <a href="cookie.html" class="texto_pequeno">Ver cookies</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="janela">
+                <div class="window_bar">
+                    <span>RESUMO.EXE</span>
+                </div>
+                <div class="janela_conteudo resumo">
+                    <ul>
+                        <li><span>Subtotal</span><span id="subtotal">R$ 0,00</span></li>
+                        <li><span>Entrega</span><span id="entrega">R$ 7,90</span></li>
+                        <li><span>Desconto</span><span id="desconto">R$ 0,00</span></li>
+                        <li class="total"><span>TOTAL</span><span id="total">R$ 0,00</span></li>
+                    </ul>
+
+                    <div class="cupom">
+                        <input type="text" id="cupom" placeholder="Cupom">
+                        <a href="#" class="botao claro" id="aplicar_cupom">OK</a>
+                    </div>
+
+                    <p class="aviso_erro" id="erro_carrinho" hidden></p>
+
+                    <a href="pedidos.html" class="botao" id="finalizar_pedido">FINALIZAR PEDIDO</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="rodape_colunas">
+            <div class="rodape_coluna">
+                <h4>Meu Cookie</h4>
+                <p>Cookies artesanais assados na hora e entregues quentinhos desde 2020.</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>CONTATO</h4>
+                <p>(31) 99999-9999</p>
+                <p>lucdavisan@gmail.com</p>
+                <p>Seg a Sáb · 10h às 22h</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>VISITANTES</h4>
+                <span class="contador">9999999</span>
+            </div>
+        </div>
+
+        <div class="rodape_copy">
+            <p>Lucas Davi - Trabalho Interdisciplinar</p>
+        </div>
+    </footer>
+
+    <script src="conta.js"></script>
+    <script src="cabecalho.js"></script>
+    <script src="layout.js"></script>
+    <script src="carrinho.js"></script>
+</body>
+
+</html>

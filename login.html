@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Meu Cookie - Login </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="header_all">
+            <div class="header_top">
+                <!-- Marca -->
+                <a href="index.html" class="text_mark">
+                    <p><span>MEU-</span><span>COOKIE</span></p>
+                </a>
+                <!-- Pesquisa -->
+                <input type="text" placeholder="Buscar Cookies...">
+                <!-- Botão de Busca -->
+                <div class="button_search">
+                    <a href="cookie.html">
+                        <img src="img/lupa.png" alt="Buscar">
+                    </a>
+                </div>
+                <!-- Modo Claro e Escuro -->
+                <div class="change_mode">
+                    <a href="#">
+                        <img src="img/lua.png" alt="Mudar para o modo escuro">
+                    </a>
+                </div>
+                <!-- Carrinho -->
+                <div class="shopping_cart">
+                    <a href="carrinho.html">
+                        <img src="img/carrinho.png" alt="Carrinho">
+                    </a>
+                </div>
+            </div>
+
+            <div class="header_bottom">
+                <nav class="menu">
+                    <a href="index.html">INÍCIO</a>
+                    <a href="cookie.html">COOKIES</a>
+                    <a href="pedidos.html">PEDIDOS</a>
+                    <a href="perfil.html">PERFIL</a>
+                </nav>
+                <div class="auth">
+                    <a href="login.html" class="login">LOGIN</a>
+                    <a href="cadastro.html" class="register">CADASTRO</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pagina">
+        <div class="janela janela_acesso">
+            <div class="window_bar">
+                <span>LOGIN.EXE</span>
+                <a href="index.html">[X]</a>
+            </div>
+            <div class="acesso_conteudo">
+                <!-- IMAGEM: ilustração ao lado do formulário (ex: pote de cookies em pixel art) -->
+                <div class="espaco_imagem">imagem do login</div>
+
+                <form action="perfil.html" id="form_login">
+                    <h1>ENTRAR NA<br>SUA CONTA</h1>
+                    <p class="texto_pequeno">Entre para acompanhar seus pedidos e pedir de novo mais rápido.</p>
+
+                    <div class="campos">
+                        <div class="campo">
+                            <label for="login_email">E-MAIL</label>
+                            <input type="email" id="login_email" placeholder="seuemail@exemplo.com" required>
+                        </div>
+                        <div class="campo">
+                            <label for="login_senha">SENHA</label>
+                            <input type="password" id="login_senha" placeholder="Sua senha" required>
+                        </div>
+                    </div>
+
+                    <p class="aviso_erro" id="erro_login" hidden>E-mail ou senha incorretos.</p>
+
+                    <label class="lembrar">
+                        <input type="checkbox" id="login_lembrar"> Lembrar de mim
+                    </label>
+
+                    <button type="submit" class="botao">ENTRAR</button>
+
+                    <p class="texto_pequeno"><a href="#">Esqueci minha senha</a></p>
+                    <p class="texto_pequeno">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="rodape_colunas">
+            <div class="rodape_coluna">
+                <h4>Meu Cookie</h4>
+                <p>Cookies artesanais assados na hora e entregues quentinhos desde 2020.</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>CONTATO</h4>
+                <p>(31) 99999-9999</p>
+                <p>lucdavisan@gmail.com</p>
+                <p>Seg a Sáb · 10h às 22h</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>VISITANTES</h4>
+                <span class="contador">9999999</span>
+            </div>
+        </div>
+
+        <div class="rodape_copy">
+            <p>Lucas Davi - Trabalho Interdisciplinar</p>
+        </div>
+    </footer>
+
+    <script src="conta.js"></script>
+    <script src="cabecalho.js"></script>
+    <script src="layout.js"></script>
+    <script>
+        // quem já está logado não precisa ver o login
+        if (usuarioLogado()) irDepoisDoLogin();
+
+        document.getElementById('form_login').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const usuario = buscarUsuario(document.getElementById('login_email').value);
+            const senha = document.getElementById('login_senha').value;
+            const errado = !usuario || usuario.senha !== senha;
+
+            document.getElementById('erro_login').hidden = !errado;
+            if (errado) return;
+
+            entrar(usuario.email, document.getElementById('login_lembrar').checked);
+            irDepoisDoLogin();
+        });
+    </script>
+</body>
+
+</html>

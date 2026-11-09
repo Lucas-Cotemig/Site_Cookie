@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Meu Cookie - Cadastro </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="header_all">
+            <div class="header_top">
+                <!-- Marca -->
+                <a href="index.html" class="text_mark">
+                    <p><span>MEU-</span><span>COOKIE</span></p>
+                </a>
+                <!-- Pesquisa -->
+                <input type="text" placeholder="Buscar Cookies...">
+                <!-- Botão de Busca -->
+                <div class="button_search">
+                    <a href="cookie.html">
+                        <img src="img/lupa.png" alt="Buscar">
+                    </a>
+                </div>
+                <!-- Modo Claro e Escuro -->
+                <div class="change_mode">
+                    <a href="#">
+                        <img src="img/lua.png" alt="Mudar para o modo escuro">
+                    </a>
+                </div>
+                <!-- Carrinho -->
+                <div class="shopping_cart">
+                    <a href="carrinho.html">
+                        <img src="img/carrinho.png" alt="Carrinho">
+                    </a>
+                </div>
+            </div>
+
+            <div class="header_bottom">
+                <nav class="menu">
+                    <a href="index.html">INÍCIO</a>
+                    <a href="cookie.html">COOKIES</a>
+                    <a href="pedidos.html">PEDIDOS</a>
+                    <a href="perfil.html">PERFIL</a>
+                </nav>
+                <div class="auth">
+                    <a href="login.html" class="login">LOGIN</a>
+                    <a href="cadastro.html" class="register">CADASTRO</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pagina">
+        <div class="janela janela_acesso">
+            <div class="window_bar">
+                <span>CADASTRO.EXE</span>
+                <a href="index.html">[X]</a>
+            </div>
+            <div class="acesso_conteudo">
+                <!-- IMAGEM: ilustração ao lado do formulário (ex: cookie sorrindo em pixel art) -->
+                <div class="espaco_imagem">imagem do cadastro</div>
+
+                <form action="perfil.html" id="form_cadastro">
+                    <h1>CRIAR<br>CONTA</h1>
+                    <p class="texto_pequeno">Leva menos de um minuto.</p>
+
+                    <div class="campos">
+                        <div class="campo">
+                            <label for="cad_nome">NOME COMPLETO</label>
+                            <input type="text" id="cad_nome" placeholder="Seu nome" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cad_email">E-MAIL</label>
+                            <input type="email" id="cad_email" placeholder="seuemail@exemplo.com" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cad_telefone">TELEFONE</label>
+                            <input type="tel" id="cad_telefone" placeholder="(31) 99999-9999" maxlength="15"
+                                pattern="\(\d{2}\) \d{5}-\d{4}" title="Digite no formato (31) 99999-9999" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cad_senha">SENHA</label>
+                            <input type="password" id="cad_senha" placeholder="Mínimo de 6 caracteres" minlength="6" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cad_senha2">CONFIRMAR SENHA</label>
+                            <input type="password" id="cad_senha2" placeholder="Repita a senha" minlength="6" required>
+                        </div>
+                    </div>
+
+                    <p class="aviso_erro" id="erro_cadastro" hidden></p>
+
+                    <label class="lembrar">
+                        <input type="checkbox" required> Li e aceito os termos de uso
+                    </label>
+
+                    <button type="submit" class="botao">CRIAR CONTA</button>
+
+                    <p class="texto_pequeno">Já tem conta? <a href="login.html">Entrar</a></p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="rodape_colunas">
+            <div class="rodape_coluna">
+                <h4>Meu Cookie</h4>
+                <p>Cookies artesanais assados na hora e entregues quentinhos desde 2020.</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>CONTATO</h4>
+                <p>(31) 99999-9999</p>
+                <p>lucdavisan@gmail.com</p>
+                <p>Seg a Sáb · 10h às 22h</p>
+            </div>
+
+            <div class="rodape_coluna">
+                <h4>VISITANTES</h4>
+                <span class="contador">9999999</span>
+            </div>
+        </div>
+
+        <div class="rodape_copy">
+            <p>Lucas Davi - Trabalho Interdisciplinar</p>
+        </div>
+    </footer>
+
+    <script src="conta.js"></script>
+    <script src="cabecalho.js"></script>
+    <script src="layout.js"></script>
+    <script>
+        // quem já está logado não precisa criar conta
+        if (usuarioLogado()) irDepoisDoLogin();
+
+        document.getElementById('form_cadastro').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('cad_email').value.trim().toLowerCase();
+            const senha = document.getElementById('cad_senha').value;
+            const confirmar = document.getElementById('cad_senha2').value;
+            const erro = document.getElementById('erro_cadastro');
+
+            let problema = '';
+            if (senha !== confirmar) problema = 'As senhas não são iguais.';
+            else if (buscarUsuario(email)) problema = 'Já existe uma conta com esse e-mail.';
+
+            erro.textContent = problema;
+            erro.hidden = !problema;
+            if (problema) return;
+
+            salvarUsuario({
+                nome: document.getElementById('cad_nome').value.trim(),
+                email,
+                telefone: document.getElementById('cad_telefone').value.trim(),
+                senha,
+                criadoEm: Date.now()
+            });
+            entrar(email, true);
+            irDepoisDoLogin();
+        });
+    </script>
+</body>
+
+</html>

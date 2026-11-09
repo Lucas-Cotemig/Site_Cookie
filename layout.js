@@ -31,3 +31,40 @@ document.addEventListener('click', (e) => {
         }).onfinish = () => migalha.remove();
     }
 });
+
+// de vez em quando o gatinho atravessa a tela
+const tamanhoGato = 160;
+const velocidadeGato = 250; // pixels por segundo
+const esperaMinimaGato = 20000;
+const esperaExtraGato = 25000;
+
+function passarGato() {
+    // quem pede menos movimento no sistema não vê o gato, e não adianta passar com a aba escondida
+    if (document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const gato = document.createElement('img');
+    gato.src = 'gif_gatinho.gif';
+    gato.alt = '';
+    gato.className = 'gatinho';
+    gato.style.top = `${Math.random() * Math.max(0, window.innerHeight - tamanhoGato)}px`;
+    document.body.appendChild(gato);
+
+    const distancia = window.innerWidth + tamanhoGato;
+    gato.animate([
+        { transform: `translateX(-${tamanhoGato}px)` },
+        { transform: `translateX(${window.innerWidth}px)` }
+    ], {
+        duration: distancia / velocidadeGato * 1000,
+        easing: 'linear'
+    }).onfinish = () => gato.remove();
+}
+
+function agendarGato(espera) {
+    setTimeout(() => {
+        passarGato();
+        agendarGato(esperaMinimaGato + Math.random() * esperaExtraGato);
+    }, espera);
+}
+
+// a primeira passada é mais cedo, para dar tempo de ver
+agendarGato(5000 + Math.random() * 5000);

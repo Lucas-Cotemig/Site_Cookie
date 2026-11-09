@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -35,19 +35,19 @@
                     <!-- Botão de Busca -->
                     <div class="button_search">
                         <a href="#">
-                            <img src="" alt="">
+                            <img src="img/lupa.png" alt="Buscar">
                         </a>
                     </div>
                     <!-- Modo Claro e Escuro -->
                     <div class="change_mode">
                         <a href="#">
-                            <img src="" alt="">
+                            <img src="img/lua.png" alt="Mudar para o modo escuro">
                         </a>
                     </div>
                     <!-- Carrinho -->
                     <div class="shopping_cart">
-                        <a href="#">
-                            <img src="" alt="">
+                        <a href="carrinho.html">
+                            <img src="img/carrinho.png" alt="Carrinho">
                         </a>
                     </div>
                 </div>
@@ -57,11 +57,11 @@
                         <a href="index.html" class="active">INÍCIO</a>
                         <a href="cookie.html">COOKIES</a>
                         <a href="pedidos.html">PEDIDOS</a>
-                        <a href="#">PERFIL</a>
+                        <a href="perfil.html">PERFIL</a>
                     </nav>
                     <div class="auth">
-                        <a href="#" class="login">LOGIN</a>
-                        <a href="#" class="register">CADASTRO</a>
+                        <a href="login.html" class="login">LOGIN</a>
+                        <a href="cadastro.html" class="register">CADASTRO</a>
                     </div>
                 </div>
             </div>
@@ -84,8 +84,8 @@
                         <p><span>Minhas receitas, entregues quentinhas na sua <br>porta em até 40 minutos. Entre e
                                 escolha o <br>seu sabor</span></p>
                         <div class="banner_buttons">
-                            <a href="#" class="view_cookies">VER COOKIES</a>
-                            <a href="#" class="create_account">CRIAR CONTA</a>
+                            <a href="cookie.html" class="view_cookies">VER COOKIES</a>
+                            <a href="cadastro.html" class="create_account">CRIAR CONTA</a>
                         </div>
                     </div>
                     <!-- Imagem -->
@@ -131,7 +131,7 @@
 
                     <div class="cg-over" id="cg-end" hidden>
                         <h3>Game over</h3>
-                        <span class="cg-record" id="cg-newrec" hidden>★ Novo recorde! ★</span>
+                        <span class="cg-record" id="cg-newrec" hidden>Novo recorde!</span>
                         <p id="cg-endtxt">Você pegou 0 cookies.</p>
                         <div class="cg-btns">
                             <a href="#" class="cg-btn" id="cg-again">Jogar de novo</a>
@@ -146,6 +146,7 @@
         <div class="mais_vendidos">
             <p>MAIS VENDIDOS</p>
             <div class="produtos">
+                <!-- IMAGEM: colocar a foto de cada cookie mais vendido dentro destes 4 quadrados -->
                 <div></div>
                 <div></div>
                 <div></div>
@@ -154,7 +155,7 @@
         </div>
 
         <div class="biscoito_3d">
-            <p>UM EXEMPLO DO NOSSO BISCOITO</p>
+            <p>UM EXEMPLO DO NOSSO BISCOITO!!</p>
             <a href="#" class="janela_3d" id="abrir_3d" aria-label="Abrir o biscoito 3D">
                 <span class="window_bar">
                     <span>BISCOITO.EXE</span>
@@ -208,6 +209,8 @@
     </footer>
 
     <script src="layout.js"></script>
+    <script src="conta.js"></script>
+    <script src="cabecalho.js"></script>
     <script src="script.js"></script>
     <script src="game.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
