@@ -1,28 +1,34 @@
+/* ===== JANELA DO BISCOITO 3D (página inicial) ===== */
 const abrir3d = document.getElementById('abrir_3d');
 const fundo3d = document.getElementById('fundo_3d');
 const fechar3d = document.getElementById('fechar_3d');
 
-function abrirBiscoito(e) {
-    if (e) e.preventDefault();
+function abrirBiscoito(evento) {
+    evento.preventDefault();
     fundo3d.hidden = false;
-    document.body.style.overflow = 'hidden';   
-    fechar3d.focus();
+    document.body.style.overflow = 'hidden'; 
 }
 
-function fecharBiscoito(e) {
-    if (e) e.preventDefault();
+function fecharBiscoito() {
     fundo3d.hidden = true;
     document.body.style.overflow = '';
-    abrir3d.focus();
 }
 
 abrir3d.addEventListener('click', abrirBiscoito);
-fechar3d.addEventListener('click', fecharBiscoito);
 
-fundo3d.addEventListener('click', (e) => {
-    if (e.target === fundo3d) fecharBiscoito(); 
+fechar3d.addEventListener('click', function (evento) {
+    evento.preventDefault();
+    fecharBiscoito();
 });
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !fundo3d.hidden) fecharBiscoito();
+fundo3d.addEventListener('click', function (evento) {
+    if (evento.target === fundo3d) {
+        fecharBiscoito();
+    }
+});
+
+document.addEventListener('keydown', function (evento) {
+    if (evento.key === 'Escape' && !fundo3d.hidden) {
+        fecharBiscoito();
+    }
 });

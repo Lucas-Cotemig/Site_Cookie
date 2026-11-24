@@ -22,29 +22,23 @@
 <body>
 
     <div id="principal_page">
-        <!-- Cabeçalho -->
         <header>
             <div class="header_all">
                 <div class="header_top">
-                    <!-- Marca -->
                     <a href="index.html" class="text_mark">
                         <p><span>MEU-</span><span>COOKIE</span></p>
                     </a>
-                    <!-- Pesquisa -->
                     <input type="text" placeholder="Buscar Cookies...">
-                    <!-- Botão de Busca -->
                     <div class="button_search">
                         <a href="#">
                             <img src="img/lupa.png" alt="Buscar">
                         </a>
                     </div>
-                    <!-- Modo Claro e Escuro -->
                     <div class="change_mode">
                         <a href="#">
                             <img src="img/lua.png" alt="Mudar para o modo escuro">
                         </a>
                     </div>
-                    <!-- Carrinho -->
                     <div class="shopping_cart">
                         <a href="carrinho.html">
                             <img src="img/carrinho.png" alt="Carrinho">
@@ -121,9 +115,9 @@
                         <h3>Chuva de Cookies</h3>
                         <p>Mova o pote para pegar os cookies. Fuja dos queimados!</p>
                         <div class="cg-legend">
-                            <span><canvas data-spr="cookie" width="8" height="8"></canvas>+1</span>
-                            <span><canvas data-spr="gold" width="8" height="8"></canvas>+5</span>
-                            <span><canvas data-spr="burnt" width="8" height="8"></canvas>perde vida</span>
+                            <span><canvas data-spr="normal" width="8" height="8"></canvas>+1</span>
+                            <span><canvas data-spr="dourado" width="8" height="8"></canvas>+5</span>
+                            <span><canvas data-spr="queimado" width="8" height="8"></canvas>perde vida</span>
                         </div>
                         <a href="#" class="cg-btn" id="cg-start">Press start</a>
                         <span class="cg-help">Setas ← → ou arraste o dedo / mouse</span>
@@ -135,7 +129,7 @@
                         <p id="cg-endtxt">Você pegou 0 cookies.</p>
                         <div class="cg-btns">
                             <a href="#" class="cg-btn" id="cg-again">Jogar de novo</a>
-                            <a class="cg-btn cg-ghost" href="#" id="cg-shop">Pedir cookies de verdade</a>
+                            <a class="cg-btn cg-ghost" href="cookie.html" id="cg-shop">Pedir cookies de verdade</a>
                         </div>
                     </div>
                 </div>
@@ -209,6 +203,7 @@
     </footer>
 
     <script src="layout.js"></script>
+    <script src="api.js"></script>
     <script src="conta.js"></script>
     <script src="cabecalho.js"></script>
     <script src="script.js"></script>

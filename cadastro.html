@@ -12,29 +12,23 @@
 </head>
 
 <body>
-    <!-- Cabeçalho -->
     <header>
         <div class="header_all">
             <div class="header_top">
-                <!-- Marca -->
                 <a href="index.html" class="text_mark">
                     <p><span>MEU-</span><span>COOKIE</span></p>
                 </a>
-                <!-- Pesquisa -->
                 <input type="text" placeholder="Buscar Cookies...">
-                <!-- Botão de Busca -->
                 <div class="button_search">
                     <a href="cookie.html">
                         <img src="img/lupa.png" alt="Buscar">
                     </a>
                 </div>
-                <!-- Modo Claro e Escuro -->
                 <div class="change_mode">
                     <a href="#">
                         <img src="img/lua.png" alt="Mudar para o modo escuro">
                     </a>
                 </div>
-                <!-- Carrinho -->
                 <div class="shopping_cart">
                     <a href="carrinho.html">
                         <img src="img/carrinho.png" alt="Carrinho">
@@ -64,7 +58,6 @@
                 <a href="index.html">[X]</a>
             </div>
             <div class="acesso_conteudo">
-                <!-- IMAGEM: ilustração ao lado do formulário (ex: cookie sorrindo em pixel art) -->
                 <div class="espaco_imagem">imagem do cadastro</div>
 
                 <form action="perfil.html" id="form_cadastro">
@@ -81,13 +74,18 @@
                             <input type="email" id="cad_email" placeholder="seuemail@exemplo.com" required>
                         </div>
                         <div class="campo">
+                            <label for="cad_cpf">CPF</label>
+                            <input type="text" id="cad_cpf" placeholder="000.000.000-00" maxlength="14" required>
+                        </div>
+                        <div class="campo">
                             <label for="cad_telefone">TELEFONE</label>
                             <input type="tel" id="cad_telefone" placeholder="(31) 99999-9999" maxlength="15"
                                 pattern="\(\d{2}\) \d{5}-\d{4}" title="Digite no formato (31) 99999-9999" required>
                         </div>
                         <div class="campo">
                             <label for="cad_senha">SENHA</label>
-                            <input type="password" id="cad_senha" placeholder="Mínimo de 6 caracteres" minlength="6" required>
+                            <input type="password" id="cad_senha" placeholder="Mínimo de 6 caracteres" minlength="6"
+                                required>
                         </div>
                         <div class="campo">
                             <label for="cad_senha2">CONFIRMAR SENHA</label>
@@ -134,37 +132,56 @@
         </div>
     </footer>
 
+    <script src="api.js"></script>
     <script src="conta.js"></script>
     <script src="cabecalho.js"></script>
     <script src="layout.js"></script>
     <script>
-        // quem já está logado não precisa criar conta
-        if (usuarioLogado()) irDepoisDoLogin();
+        if (usuarioLogado() !== null) {
+            irDepoisDoLogin();
+        }
 
-        document.getElementById('form_cadastro').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('cad_email').value.trim().toLowerCase();
+        // CPF formatado enquanto digita: 000.000.000-00
+        document.getElementById('cad_cpf').addEventListener('input', function (evento) {
+            const n = evento.target.value.replace(/\D/g, '').slice(0, 11);
+            let texto = n.slice(0, 3);
+            if (n.length > 3) texto += '.' + n.slice(3, 6);
+            if (n.length > 6) texto += '.' + n.slice(6, 9);
+            if (n.length > 9) texto += '-' + n.slice(9);
+            evento.target.value = texto;
+        });
+
+        document.getElementById('form_cadastro').addEventListener('submit', async function (evento) {
+            evento.preventDefault();
+            document.getElementById('erro_cadastro').hidden = true;
+
             const senha = document.getElementById('cad_senha').value;
             const confirmar = document.getElementById('cad_senha2').value;
-            const erro = document.getElementById('erro_cadastro');
 
-            let problema = '';
-            if (senha !== confirmar) problema = 'As senhas não são iguais.';
-            else if (buscarUsuario(email)) problema = 'Já existe uma conta com esse e-mail.';
+            if (senha !== confirmar) {
+                mostrarErroEm('erro_cadastro', 'As senhas não são iguais.');
+                return;
+            }
 
-            erro.textContent = problema;
-            erro.hidden = !problema;
-            if (problema) return;
+            const botao = evento.target.querySelector('button[type="submit"]');
+            botao.disabled = true;
 
-            salvarUsuario({
-                nome: document.getElementById('cad_nome').value.trim(),
-                email,
-                telefone: document.getElementById('cad_telefone').value.trim(),
-                senha,
-                criadoEm: Date.now()
-            });
-            entrar(email, true);
-            irDepoisDoLogin();
+            try {
+                // vai para o back-end (POST /api/usuarios) — quem verifica e-mail repetido é ele
+                const usuario = await api.cadastrar({
+                    nome: document.getElementById('cad_nome').value.trim(),
+                    email: document.getElementById('cad_email').value.trim().toLowerCase(),
+                    cpf: document.getElementById('cad_cpf').value.trim(),
+                    telefone: document.getElementById('cad_telefone').value.trim(),
+                    senha: senha
+                });
+
+                entrar(usuario, true);
+                irDepoisDoLogin();
+            } catch (erro) {
+                mostrarErroEm('erro_cadastro', erro.message);
+                botao.disabled = false;
+            }
         });
     </script>
 </body>

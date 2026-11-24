@@ -12,29 +12,23 @@
 </head>
 
 <body>
-    <!-- Cabeçalho -->
     <header>
         <div class="header_all">
             <div class="header_top">
-                <!-- Marca -->
                 <a href="index.html" class="text_mark">
                     <p><span>MEU-</span><span>COOKIE</span></p>
                 </a>
-                <!-- Pesquisa -->
                 <input type="text" placeholder="Buscar Cookies...">
-                <!-- Botão de Busca -->
                 <div class="button_search">
                     <a href="cookie.html">
                         <img src="img/lupa.png" alt="Buscar">
                     </a>
                 </div>
-                <!-- Modo Claro e Escuro -->
                 <div class="change_mode">
                     <a href="#">
                         <img src="img/lua.png" alt="Mudar para o modo escuro">
                     </a>
                 </div>
-                <!-- Carrinho -->
                 <div class="shopping_cart">
                     <a href="carrinho.html">
                         <img src="img/carrinho.png" alt="Carrinho">
@@ -64,7 +58,6 @@
                 <a href="index.html">[X]</a>
             </div>
             <div class="acesso_conteudo">
-                <!-- IMAGEM: ilustração ao lado do formulário (ex: pote de cookies em pixel art) -->
                 <div class="espaco_imagem">imagem do login</div>
 
                 <form action="perfil.html" id="form_login">
@@ -122,24 +115,41 @@
         </div>
     </footer>
 
+    <script src="api.js"></script>
     <script src="conta.js"></script>
     <script src="cabecalho.js"></script>
     <script src="layout.js"></script>
     <script>
-        // quem já está logado não precisa ver o login
-        if (usuarioLogado()) irDepoisDoLogin();
-
-        document.getElementById('form_login').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const usuario = buscarUsuario(document.getElementById('login_email').value);
-            const senha = document.getElementById('login_senha').value;
-            const errado = !usuario || usuario.senha !== senha;
-
-            document.getElementById('erro_login').hidden = !errado;
-            if (errado) return;
-
-            entrar(usuario.email, document.getElementById('login_lembrar').checked);
+        if (usuarioLogado() !== null) {
             irDepoisDoLogin();
+        }
+
+        document.getElementById('form_login').addEventListener('submit', async function (evento) {
+            evento.preventDefault();
+            document.getElementById('erro_login').hidden = true;
+
+            const email = document.getElementById('login_email').value.trim().toLowerCase();
+            const senha = document.getElementById('login_senha').value;
+            const lembrar = document.getElementById('login_lembrar').checked;
+            const botao = evento.target.querySelector('button[type="submit"]');
+            botao.disabled = true;
+
+            try {
+                // vai para o back-end (POST /api/login)
+                const usuario = await api.login(email, senha);
+
+                if (usuario === null) {
+                    mostrarErroEm('erro_login', 'E-mail ou senha incorretos.');
+                    botao.disabled = false;
+                    return;
+                }
+
+                entrar(usuario, lembrar);
+                irDepoisDoLogin();
+            } catch (erro) {
+                mostrarErroEm('erro_login', erro.message);
+                botao.disabled = false;
+            }
         });
     </script>
 </body>

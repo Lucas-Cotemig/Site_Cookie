@@ -4,38 +4,86 @@ const erroCarrinho = document.getElementById('erro_carrinho');
 const valorEntrega = 7.90;
 let porcentagemDesconto = 0;
 
-function calcularTotais() {
-    const itens = lerCarrinho();
-    const subtotal = itens.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
-    const entrega = itens.length > 0 ? valorEntrega : 0;
-    const desconto = subtotal * porcentagemDesconto;
-    return { itens, subtotal, entrega, desconto, total: subtotal - desconto + entrega };
+/* ===== CONTAS DO RESUMO ===== */
+
+function calcularSubtotal(itens) {
+    let subtotal = 0;
+    for (let i = 0; i < itens.length; i++) {
+        subtotal = subtotal + itens[i].preco * itens[i].quantidade;
+    }
+    return subtotal;
+}
+
+// carrinho vazio não paga entrega
+function calcularEntrega(itens) {
+    if (itens.length === 0) {
+        return 0;
+    }
+    return valorEntrega;
 }
 
 function atualizarTotal() {
-    const contas = calcularTotais();
+    const itens = lerCarrinho();
+    const subtotal = calcularSubtotal(itens);
+    const entrega = calcularEntrega(itens);
+    const desconto = subtotal * porcentagemDesconto;
+    const total = subtotal - desconto + entrega;
 
-    document.getElementById('subtotal').textContent = formatarPreco(contas.subtotal);
-    document.getElementById('entrega').textContent = formatarPreco(contas.entrega);
-    document.getElementById('desconto').textContent = '- ' + formatarPreco(contas.desconto);
-    document.getElementById('total').textContent = formatarPreco(contas.total);
-    avisoVazio.hidden = contas.itens.length > 0;
+    document.getElementById('subtotal').textContent = formatarPreco(subtotal);
+    document.getElementById('entrega').textContent = formatarPreco(entrega);
+    document.getElementById('desconto').textContent = '- ' + formatarPreco(desconto);
+    document.getElementById('total').textContent = formatarPreco(total);
+
+    // a mensagem "Seu carrinho está vazio" só aparece sem itens
+    avisoVazio.hidden = itens.length > 0;
 }
 
-function desenharCarrinho() {
-    lista.querySelectorAll('.item_carrinho').forEach((item) => item.remove());
+/* ===== LISTA DE ITENS ===== */
 
-    lerCarrinho().forEach((item, posicao) => {
+function mudarQuantidade(posicao, quanto) {
+    const itens = lerCarrinho();
+    itens[posicao].quantidade = itens[posicao].quantidade + quanto;
+
+    // chegou a zero: tira do carrinho
+    if (itens[posicao].quantidade < 1) {
+        itens.splice(posicao, 1);
+    }
+
+    salvarCarrinho(itens);
+    desenharCarrinho();
+}
+
+function removerItem(posicao) {
+    const itens = lerCarrinho();
+    itens.splice(posicao, 1);
+    salvarCarrinho(itens);
+    desenharCarrinho();
+}
+
+// cria na tela uma linha para cada cookie do carrinho
+function desenharCarrinho() {
+    // apaga as linhas antigas antes de desenhar de novo
+    const linhasAntigas = lista.querySelectorAll('.item_carrinho');
+    for (let i = 0; i < linhasAntigas.length; i++) {
+        linhasAntigas[i].remove();
+    }
+
+    const itens = lerCarrinho();
+
+    for (let i = 0; i < itens.length; i++) {
+        const item = itens[i];
+
+        let foto = 'imagem';
+        if (item.imagem) {
+            foto = '<img src="' + item.imagem + '" alt="Cookie ' + item.nome + '">';
+        }
+
         const linha = document.createElement('div');
         linha.className = 'item_carrinho';
-        linha.dataset.posicao = posicao;
-        const foto = item.imagem
-            ? `<img src="${escaparHtml(item.imagem)}" alt="Cookie ${escaparHtml(item.nome)}">`
-            : 'imagem';
         linha.innerHTML = `
             <div class="espaco_imagem">${foto}</div>
             <div>
-                <h3>${escaparHtml(item.nome)}</h3>
+                <h3>${item.nome}</h3>
                 <p>${formatarPreco(item.preco)}</p>
             </div>
             <div class="quantidade">
@@ -44,71 +92,83 @@ function desenharCarrinho() {
                 <a href="#" class="mais">+</a>
             </div>
             <a href="#" class="remover">REMOVER</a>`;
+
+        linha.querySelector('.mais').addEventListener('click', function (evento) {
+            evento.preventDefault();
+            mudarQuantidade(i, 1);
+        });
+
+        linha.querySelector('.menos').addEventListener('click', function (evento) {
+            evento.preventDefault();
+            mudarQuantidade(i, -1);
+        });
+
+        linha.querySelector('.remover').addEventListener('click', function (evento) {
+            evento.preventDefault();
+            removerItem(i);
+        });
+
+        // coloca a linha antes da mensagem de carrinho vazio
         lista.insertBefore(linha, avisoVazio);
-    });
+    }
 
     atualizarTotal();
 }
 
-lista.addEventListener('click', (e) => {
-    const botao = e.target.closest('a');
-    if (!botao || !botao.closest('.item_carrinho')) return;
-    e.preventDefault();
+/* ===== CUPOM ===== */
+// cupom de exemplo: COOKIE10 dá 10% de desconto
+document.getElementById('aplicar_cupom').addEventListener('click', function (evento) {
+    evento.preventDefault();
+    const cupom = document.getElementById('cupom').value.trim().toUpperCase();
 
-    const itens = lerCarrinho();
-    const item = itens[botao.closest('.item_carrinho').dataset.posicao];
-    if (!item) return;
-
-    if (botao.classList.contains('mais')) item.quantidade++;
-    if (botao.classList.contains('menos')) item.quantidade--;
-
-    if (botao.classList.contains('remover') || item.quantidade < 1) {
-        itens.splice(itens.indexOf(item), 1);
+    if (cupom === 'COOKIE10') {
+        porcentagemDesconto = 0.10;
+    } else {
+        porcentagemDesconto = 0;
     }
 
-    gravarCarrinho(itens);
-    desenharCarrinho();
-});
-
-// cupom de exemplo: COOKIE10 dá 10% de desconto
-document.getElementById('aplicar_cupom').addEventListener('click', (e) => {
-    e.preventDefault();
-    const cupom = document.getElementById('cupom').value.trim().toUpperCase();
-    porcentagemDesconto = cupom === 'COOKIE10' ? 0.10 : 0;
     atualizarTotal();
 });
 
-document.getElementById('finalizar_pedido').addEventListener('click', (e) => {
-    e.preventDefault();
-    const contas = calcularTotais();
+/* ===== FINALIZAR PEDIDO ===== */
+document.getElementById('finalizar_pedido').addEventListener('click', async function (evento) {
+    evento.preventDefault();
+    erroCarrinho.hidden = true;
+    const itens = lerCarrinho();
 
-    if (contas.itens.length === 0) {
+    if (itens.length === 0) {
         erroCarrinho.textContent = 'Seu carrinho está vazio.';
         erroCarrinho.hidden = false;
         return;
     }
 
-    // sem conta não tem pedido: o carrinho fica guardado e o login volta para cá
+    // sem conta não tem pedido: vai para o login e o carrinho continua guardado
     const usuario = exigirLogin();
-    if (!usuario) return;
+    if (usuario === null) {
+        return;
+    }
 
-    const pedidos = lerPedidos();
-    const ultimoNumero = pedidos.reduce((maior, pedido) => Math.max(maior, pedido.numero), 0);
+    const subtotal = calcularSubtotal(itens);
+    const entrega = calcularEntrega(itens);
+    const desconto = subtotal * porcentagemDesconto;
 
-    pedidos.push({
-        numero: ultimoNumero + 1,
-        email: usuario.email,
-        data: Date.now(),
-        itens: contas.itens,
-        subtotal: contas.subtotal,
-        entrega: contas.entrega,
-        desconto: contas.desconto,
-        total: contas.total,
-        cancelado: false
-    });
-    gravarPedidos(pedidos);
-    gravarCarrinho([]);
+    // envia o pedido para o back-end (POST /api/pedidos); o número e a data quem define é ele
+    try {
+        await api.criarPedido({
+            email: usuario.email,
+            itens: itens,
+            entrega: entrega,
+            desconto: desconto,
+            total: subtotal - desconto + entrega
+        });
+    } catch (erro) {
+        erroCarrinho.textContent = erro.message;
+        erroCarrinho.hidden = false;
+        return;
+    }
 
+    // esvazia o carrinho e mostra os pedidos
+    salvarCarrinho([]);
     location.href = 'pedidos.html';
 });
 

@@ -1,185 +1,190 @@
-// o site não tem servidor, então contas, carrinho e pedidos ficam guardados no navegador (localStorage)
-const chaveUsuarios = 'meucookie-usuarios';
-const chaveSessao = 'meucookie-sessao';
-const chaveCarrinho = 'meucookie-carrinho';
-const chavePedidos = 'meucookie-pedidos';
+// Funções usadas em todas as páginas.
+// Contas e pedidos ficam no banco de dados (ver api.js).
+// No navegador ficam só a sessão (quem está logado) e o carrinho, que ainda não virou pedido.
 
-// etapas do pedido e quantos minutos depois da compra cada uma começa
-const etapasPedido = ['RECEBIDO', 'NO FORNO', 'A CAMINHO', 'ENTREGUE'];
-const minutosDaEtapa = [0, 2, 5, 10];
+/* ===== FUNÇÕES GERAIS ===== */
 
-function lerDados(chave, padrao) {
-    try {
-        const valor = JSON.parse(localStorage.getItem(chave));
-        return valor === null ? padrao : valor;
-    } catch (e) {
-        return padrao;
-    }
+// mostra uma mensagem de erro num elemento da página
+function mostrarErroEm(idElemento, mensagem) {
+    const elemento = document.getElementById(idElemento);
+    elemento.textContent = mensagem;
+    elemento.hidden = false;
 }
 
-function gravarDados(chave, valor) {
-    try {
-        localStorage.setItem(chave, JSON.stringify(valor));
-    } catch (e) { }
-}
-
+// 9.9 vira "R$ 9,90"
 function formatarPreco(valor) {
     return 'R$ ' + valor.toFixed(2).replace('.', ',');
 }
 
-function formatarData(momento) {
+// 5 vira "05"
+function doisDigitos(numero) {
+    return String(numero).padStart(2, '0');
+}
+
+// devolve a data no formato 09/11/2026
+function formatarDia(momento) {
     const data = new Date(momento);
-    const dois = (n) => String(n).padStart(2, '0');
-    return `${dois(data.getDate())}/${dois(data.getMonth() + 1)}/${data.getFullYear()} - ${dois(data.getHours())}:${dois(data.getMinutes())}`;
+    return doisDigitos(data.getDate()) + '/' + doisDigitos(data.getMonth() + 1) + '/' + data.getFullYear();
 }
 
-function escaparHtml(texto) {
-    const div = document.createElement('div');
-    div.textContent = texto;
-    return div.innerHTML;
+// devolve a hora no formato 19:32
+function formatarHora(momento) {
+    const data = new Date(momento);
+    return doisDigitos(data.getHours()) + ':' + doisDigitos(data.getMinutes());
 }
 
-/* ===== CONTAS ===== */
-function buscarUsuario(email) {
-    const procurado = email.trim().toLowerCase();
-    return lerDados(chaveUsuarios, []).find((usuario) => usuario.email === procurado) || null;
-}
+/* ===== SESSÃO (quem está logado) ===== */
+// Guarda só { id, nome, email } da conta que o back-end devolveu no login/cadastro.
+// Com "lembrar de mim" fica no localStorage; sem ele, fica no sessionStorage,
+// que é apagado quando o navegador fecha.
 
-function salvarUsuario(usuario) {
-    const usuarios = lerDados(chaveUsuarios, []);
-    const posicao = usuarios.findIndex((u) => u.email === usuario.email);
-    if (posicao >= 0) usuarios[posicao] = usuario;
-    else usuarios.push(usuario);
-    gravarDados(chaveUsuarios, usuarios);
-}
-
-// com "lembrar de mim" a sessão fica no localStorage; sem ele, some ao fechar o navegador
-function entrar(email, lembrar) {
-    try {
-        (lembrar ? localStorage : sessionStorage).setItem(chaveSessao, email);
-    } catch (e) { }
+function entrar(usuario, lembrar) {
+    const sessao = JSON.stringify({ id: usuario.id, nome: usuario.nome, email: usuario.email });
+    sair();
+    if (lembrar) {
+        localStorage.setItem('meucookie-sessao', sessao);
+    } else {
+        sessionStorage.setItem('meucookie-sessao', sessao);
+    }
 }
 
 function sair() {
-    try {
-        localStorage.removeItem(chaveSessao);
-        sessionStorage.removeItem(chaveSessao);
-    } catch (e) { }
+    localStorage.removeItem('meucookie-sessao');
+    sessionStorage.removeItem('meucookie-sessao');
 }
 
+// atualiza o nome guardado na sessão (depois de editar o perfil)
+function atualizarSessao(usuario) {
+    const lembrar = localStorage.getItem('meucookie-sessao') !== null;
+    entrar(usuario, lembrar);
+}
+
+// devolve { id, nome, email } de quem está logado (ou null se ninguém entrou)
 function usuarioLogado() {
-    let email = null;
-    try {
-        email = sessionStorage.getItem(chaveSessao) || localStorage.getItem(chaveSessao);
-    } catch (e) { }
-    return email ? buscarUsuario(email) : null;
+    const texto = sessionStorage.getItem('meucookie-sessao') || localStorage.getItem('meucookie-sessao');
+    return texto === null ? null : JSON.parse(texto);
 }
 
-// páginas que precisam de conta mandam para o login, que depois volta para elas
+// usada nas páginas que precisam de conta: se ninguém entrou, manda para o login.
+// O "voltar" faz o login trazer a pessoa de volta para a página onde ela estava.
 function exigirLogin() {
     const usuario = usuarioLogado();
-    if (!usuario) {
-        const pagina = location.pathname.split('/').pop() || 'index.html';
-        location.replace('login.html?voltar=' + encodeURIComponent(pagina));
+    if (usuario === null) {
+        const pagina = location.pathname.split('/').pop();
+        location.href = 'login.html?voltar=' + pagina;
     }
     return usuario;
 }
 
+// depois de entrar, volta para a página de antes (ou vai para o perfil)
 function irDepoisDoLogin() {
     const voltar = new URLSearchParams(location.search).get('voltar');
-    // só aceita páginas do próprio site
-    location.href = voltar && /^[\w-]+\.html$/.test(voltar) ? voltar : 'perfil.html';
+
+    // só aceita páginas do próprio site, como "pedidos.html"
+    if (voltar !== null && /^[a-z]+\.html$/.test(voltar)) {
+        location.href = voltar;
+    } else {
+        location.href = 'perfil.html';
+    }
 }
 
 /* ===== CARRINHO ===== */
+// cada item do carrinho é assim: { nome, preco, quantidade, imagem }
+
 function lerCarrinho() {
-    return lerDados(chaveCarrinho, []);
+    return JSON.parse(localStorage.getItem('meucookie-carrinho') || '[]');
 }
 
-function gravarCarrinho(itens) {
-    gravarDados(chaveCarrinho, itens);
+// o localStorage só guarda texto, por isso o JSON.stringify
+function salvarCarrinho(itens) {
+    localStorage.setItem('meucookie-carrinho', JSON.stringify(itens));
 }
 
-function adicionarAoCarrinho(nome, preco, quantidade = 1, imagem = '') {
+function adicionarAoCarrinho(nome, preco, quantidade, imagem) {
     const itens = lerCarrinho();
-    const existente = itens.find((item) => item.nome === nome);
-    if (existente) existente.quantidade += quantidade;
-    else itens.push({ nome, preco, quantidade, imagem });
-    gravarCarrinho(itens);
+    const item = itens.find((i) => i.nome === nome);
+
+    // se o cookie já está no carrinho, só aumenta a quantidade
+    if (item) {
+        item.quantidade += quantidade;
+    } else {
+        itens.push({ nome: nome, preco: preco, quantidade: quantidade, imagem: imagem });
+    }
+    salvarCarrinho(itens);
 }
 
 /* ===== PEDIDOS ===== */
-function lerPedidos() {
-    return lerDados(chavePedidos, []);
+// A etapa do pedido é escolhida pela loja no programa C# (tela de Pedidos)
+// e chega no campo "status".
+
+const etapasPedido = ['Recebido', 'No forno', 'A caminho', 'Entregue'];
+const minutosParaEntregar = 10;
+
+// 1 vira "#0001"
+function numeroDoPedido(pedido) {
+    return '#' + String(pedido.numero).padStart(4, '0');
 }
 
-function gravarPedidos(pedidos) {
-    gravarDados(chavePedidos, pedidos);
-}
-
-// mais recentes primeiro
-function pedidosDoUsuario(email) {
-    return lerPedidos()
-        .filter((pedido) => pedido.email === email)
-        .sort((a, b) => b.data - a.data);
-}
-
+// posição da etapa: 0 = Recebido, 1 = No forno, 2 = A caminho, 3 = Entregue
 function etapaDoPedido(pedido) {
-    const minutos = (Date.now() - pedido.data) / 60000;
-    let etapa = 0;
-    minutosDaEtapa.forEach((inicio, i) => {
-        if (minutos >= inicio) etapa = i;
-    });
-    return etapa;
+    return Math.max(0, etapasPedido.indexOf(pedido.status));
 }
 
-// andamento, entregue ou cancelado (os mesmos nomes dos filtros e das etiquetas)
+// devolve "andamento", "entregue" ou "cancelado" (os mesmos nomes dos filtros e das etiquetas)
 function statusDoPedido(pedido) {
-    if (pedido.cancelado) return 'cancelado';
-    return etapaDoPedido(pedido) === etapasPedido.length - 1 ? 'entregue' : 'andamento';
+    if (pedido.cancelado) {
+        return 'cancelado';
+    }
+    if (pedido.status === 'Entregue') {
+        return 'entregue';
+    }
+    return 'andamento';
 }
 
+// texto que aparece na etiqueta do pedido
 function nomeDoStatus(pedido) {
-    const status = statusDoPedido(pedido);
-    if (status === 'cancelado') return 'Cancelado';
-    const etapa = etapasPedido[etapaDoPedido(pedido)];
-    return etapa.charAt(0) + etapa.slice(1).toLowerCase();
+    return pedido.cancelado ? 'Cancelado' : etapasPedido[etapaDoPedido(pedido)];
 }
 
 /* ===== TELEFONE ===== */
+
 // deixa só os números e monta no formato (31) 99999-9999
 function formatarTelefone(valor) {
-    const numeros = valor.replace(/\D/g, '').slice(0, 11);
-    if (numeros.length === 0) return '';
-    if (numeros.length <= 2) return '(' + numeros;
-    if (numeros.length <= 7) return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
-    return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7)}`;
+    const n = valor.replace(/\D/g, '').slice(0, 11);
+    if (n.length === 0) return '';
+    if (n.length <= 2) return '(' + n;
+    if (n.length <= 7) return '(' + n.slice(0, 2) + ') ' + n.slice(2);
+    return '(' + n.slice(0, 2) + ') ' + n.slice(2, 7) + '-' + n.slice(7);
 }
 
+// todo campo de telefone do site é formatado enquanto a pessoa digita
 document.querySelectorAll('input[type="tel"]').forEach((campo) => {
-    campo.addEventListener('input', () => campo.value = formatarTelefone(campo.value));
+    campo.addEventListener('input', () => {
+        campo.value = formatarTelefone(campo.value);
+    });
 });
 
 /* ===== CABEÇALHO ===== */
-// logado, os botões LOGIN e CADASTRO viram o nome do usuário e SAIR
+
+// quando tem alguém logado, os botões LOGIN e CADASTRO viram o nome da pessoa e SAIR
 function atualizarCabecalhoConta() {
     const usuario = usuarioLogado();
-    if (!usuario) return;
+    if (usuario === null) {
+        return;
+    }
 
     const botaoLogin = document.querySelector('header .auth .login');
-    const botaoCadastro = document.querySelector('header .auth .register');
-    if (botaoLogin) {
-        botaoLogin.textContent = usuario.nome.split(' ')[0].toUpperCase();
-        botaoLogin.href = 'perfil.html';
-    }
-    if (botaoCadastro) {
-        botaoCadastro.textContent = 'SAIR';
-        botaoCadastro.href = 'index.html';
-        botaoCadastro.addEventListener('click', sair);
-    }
+    botaoLogin.textContent = usuario.nome.split(' ')[0].toUpperCase();
+    botaoLogin.href = 'perfil.html';
 
+    const botaoCadastro = document.querySelector('header .auth .register');
+    botaoCadastro.textContent = 'SAIR';
+    botaoCadastro.href = 'index.html';
+    botaoCadastro.addEventListener('click', sair);
+
+    // o botão "CRIAR CONTA" da página inicial vira "MEUS PEDIDOS"
     const criarConta = document.querySelector('.create_account');
-    if (criarConta) {
+    if (criarConta !== null) {
         criarConta.textContent = 'MEUS PEDIDOS';
         criarConta.href = 'pedidos.html';
     }

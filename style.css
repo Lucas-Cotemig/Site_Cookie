@@ -1,3 +1,25 @@
+/*  ===== CORES E FONTES DO SITE (mude aqui e muda em tudo) =====  */
+
+:root {
+    --vinho-escuro: #2b0f14;
+    --vinho: #5e2c35;
+    --rosa: #ee1e52;
+    --rosa-claro: #ffb5c0;
+    --rosa-bebe: #f9c5d1;
+    --fundo: #fffafa;
+    --cg-panel: #ffffff;
+    --cg-ink: #3b1a1f;
+    --cg-muted: #7d4a52;
+    --cg-pink: #ee2a5e;
+    --cg-pink-soft: #f9c5d1;
+    --cg-wine: #5a2a33;
+    --cg-wine-deep: #3d1c23;
+    --cg-cream: #fff3e6;
+    --cg-gold: #ffd23f;
+    --fonte-VT3: "VT323", "Courier New", ui-monospace, monospace;
+    --fonte-Player: "Press Start 2P", system-ui;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,27 +27,41 @@
 }
 
 body {
-    background-color: #FFFAFA;
-    background-image: radial-gradient(#FFB5C0 0.0001px, transparent 1px);
+    background-color: var(--fundo);
+    background-image: radial-gradient(var(--rosa-claro) 0.0001px, transparent 1px);
     background-size: 10px 10px;
 }
 
+/* migalha que voa ao clicar (criada pelo layout.js) */
 .migalha {
-    position: fixed;
-    pointer-events: none;
     z-index: 9999;
     border-radius: 2px;
 }
 
 /* gatinho que atravessa a tela (criado pelo layout.js) */
+.migalha,
 .gatinho {
     position: fixed;
-    left: 0;
+    pointer-events: none;
+}
+.gatinho {
+    left: -160px;
     width: 160px;
     height: 160px;
-    pointer-events: none;
     z-index: 9998;
     image-rendering: pixelated;
+    animation: atravessar 8s linear;
+}
+
+/* anda da esquerda (fora da tela) até a direita (fora da tela) */
+@keyframes atravessar {
+    from {
+        left: -160px;
+    }
+
+    to {
+        left: 100%;
+    }
 }
 
 /* ===== CABEÇALHO ===== */
@@ -44,8 +80,8 @@ header.escondido {
 
 header .header_all {
     width: 100%;
-    border-bottom: 1.5px black solid;
-    background-color: #FFFAFA;
+    border-bottom: 1.5px solid black;
+    background-color: var(--fundo);
     box-sizing: border-box;
     padding: 3vh 0 2.5vh;
     display: grid;
@@ -53,15 +89,14 @@ header .header_all {
     row-gap: 2.5vh;
 }
 
-header .header_top {
+header .header_top,
+header .header_bottom {
     display: flex;
     align-items: center;
 }
 
 header .header_bottom {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 header .text_mark {
@@ -76,7 +111,7 @@ header .text_mark span {
 }
 
 header .text_mark span:first-child {
-    color: #EE1E52;
+    color: var(--rosa);
 }
 
 header .header_top input {
@@ -85,8 +120,8 @@ header .header_top input {
     margin-left: 2vh;
     height: 6vh;
     width: 97vh;
-    background-color: #FFFAFA;
-    border: 1.8px black solid;
+    background-color: var(--fundo);
+    border: 1.8px solid black;
     font-family: "VT323", monospace;
     font-size: 20px;
     color: black;
@@ -98,15 +133,15 @@ header .change_mode,
 header .shopping_cart {
     height: 5.5vh;
     margin-left: 1vh;
-    border: 1.8px black solid;
+    border: 1.8px solid black;
     box-shadow: 3px 3px 0 black;
-    background-color: #FFB5C0;
+    background-color: var(--rosa-claro);
 }
 
 header .button_search {
     width: 6vh;
     margin-left: 2.5vh;
-    background-color: #EE1E52;
+    background-color: var(--rosa);
 }
 
 header .change_mode {
@@ -152,7 +187,7 @@ header .menu a {
 
 header .menu a:hover,
 header .menu a.active {
-    color: #EE1E52;
+    color: var(--rosa);
     text-decoration: underline;
 }
 
@@ -167,18 +202,18 @@ header .auth a {
     font-family: "Press Start 2P", system-ui;
     font-size: 1.5vh;
     padding: 1.5vh 2.5vh;
-    border: 1.8px black solid;
+    border: 1.8px solid black;
     box-shadow: 3px 3px 0 black;
     cursor: pointer;
 }
 
 header .auth .login {
-    background-color: #FFB5C0;
+    background-color: var(--rosa-claro);
     color: black;
 }
 
 header .auth .register {
-    background-color: #EE1E52;
+    background-color: var(--rosa);
     color: white;
 }
 
@@ -199,16 +234,18 @@ main {
     width: 65%;
     height: 55vh;
     background-color: white;
-    border: 2px black solid;
+    border: 2px solid black;
     box-shadow: 5px 5px 0.5px 0.5px black;
     display: flex;
     flex-direction: column;
 }
 
-#principal_page #body_site .first_banner .window_bar {
+#principal_page #body_site .first_banner .window_bar,
+#principal_page .biscoito_3d .window_bar,
+#principal_page .fundo_3d .window_bar {
     height: 4.5vh;
-    background-color: #5E2C35;
-    color: #FFB5C0;
+    background-color: var(--vinho);
+    color: var(--rosa-claro);
     font-family: "Press Start 2P", system-ui;
     font-size: 1.3vh;
     display: flex;
@@ -244,7 +281,7 @@ main {
 
 #principal_page #body_site .first_banner .text_banner p:nth-last-of-type(2) {
     font-family: "Press Start 2P", system-ui;
-    color: #EE1E52;
+    color: var(--rosa);
     font-size: 35px;
     margin-left: 40px;
     margin-top: 40px;
@@ -270,18 +307,18 @@ main {
     font-size: 12px;
     text-decoration: none;
     padding: 16px 20px;
-    border: 2px black solid;
+    border: 2px solid black;
     box-shadow: 3px 3px 0 black;
     cursor: pointer;
 }
 
 #principal_page #body_site .first_banner .text_banner .view_cookies {
-    background-color: #EE1E52;
+    background-color: var(--rosa);
     color: white;
 }
 
 #principal_page #body_site .first_banner .text_banner .create_account {
-    background-color: #FFB5C0;
+    background-color: var(--rosa-claro);
     color: black;
 }
 
@@ -305,8 +342,8 @@ main {
     color: white;
     padding: 16px 128px;
     margin-top: 1vh;
-    background-color: #EE1E52;
-    border: 2px black solid;
+    background-color: var(--rosa);
+    border: 2px solid black;
     box-shadow: 3px 3px 0 black;
 }
 
@@ -317,9 +354,9 @@ main {
     flex-direction: column;
 }
 
-#principal_page .mais_vendidos p{
+#principal_page .mais_vendidos p {
     font-family: "Press Start 2P", system-ui;
-    color: #EE1E52;
+    color: var(--rosa);
     font-size: 20px;
     margin-left: 40vh;
     margin-bottom: 3vh;
@@ -327,21 +364,21 @@ main {
     flex-shrink: 0;
 }
 
-#principal_page .mais_vendidos .produtos{
+#principal_page .mais_vendidos .produtos {
     display: flex;
     justify-content: center;
     gap: 3vh;
 }
 
-#principal_page .mais_vendidos .produtos div{
+#principal_page .mais_vendidos .produtos div {
     width: 30vh;
     height: 40vh;
     background-color: white;
-    border: 2px black solid;
+    border: 2px solid black;
     box-shadow: 8px 8px 0 #000;
 }
 
-#principal_page{
+#principal_page {
     width: 100%;
     height: 230vh;
 }
@@ -354,9 +391,9 @@ main {
     align-items: center;
 }
 
-#principal_page .biscoito_3d p{
+#principal_page .biscoito_3d p {
     font-family: "Press Start 2P", system-ui;
-    color: #EE1E52;
+    color: var(--rosa);
     font-size: 20px;
     text-align: center;
     margin-bottom: 5vh;
@@ -369,31 +406,18 @@ main {
     width: 400px;
     padding: 0;
     background-color: white;
-    border: 3px #2B0F14 solid;
-    box-shadow: 8px 8px 0 #2B0F14;
+    border: 3px solid var(--vinho-escuro);
+    box-shadow: 8px 8px 0 var(--vinho-escuro);
     cursor: pointer;
     text-align: left;
 }
 
 #principal_page .biscoito_3d .janela_3d:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 10px 10px 0 #2B0F14;
+    box-shadow: 10px 10px 0 var(--vinho-escuro);
 }
 
-#principal_page .biscoito_3d .window_bar,
-#principal_page .fundo_3d .window_bar {
-    height: 4.5vh;
-    background-color: #5E2C35;
-    color: #FFB5C0;
-    font-family: "Press Start 2P", system-ui;
-    font-size: 1.3vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1.5vh;
-}
-
-#principal_page .biscoito_3d .cookie-3d{
+#principal_page .biscoito_3d .cookie-3d {
     display: block;
     width: 100%;
     height: 350px;
@@ -409,27 +433,28 @@ main {
     align-items: center;
     justify-content: center;
     padding: 12px;
-    background: rgba(15, 4, 8, .85);
+    background: rgba(15, 4, 8, 0.85);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    animation: cg-fade .2s ease-out;
+    animation: cg-fade 0.2s ease-out;
 }
 
-#principal_page .fundo_3d[hidden] {
+#principal_page .fundo_3d[hidden],
+#cardapio_cookie main .card_cookie[hidden] {
     display: none;
 }
 
 #principal_page .fundo_3d .janela_3d_aberta {
     width: min(600px, calc(100vw - 32px));
     background-color: white;
-    border: 3px #2B0F14 solid;
+    border: 3px solid var(--vinho-escuro);
     box-shadow: 8px 8px 0 #000;
 }
 
 #principal_page .fundo_3d .window_bar a {
     font: inherit;
     text-decoration: none;
-    color: #FFB5C0;
+    color: var(--rosa-claro);
     background: transparent;
     border: 0;
     padding: 2px 6px;
@@ -437,7 +462,7 @@ main {
 }
 
 #principal_page .fundo_3d .window_bar a:hover {
-    background-color: #EE1E52;
+    background-color: var(--rosa);
     color: white;
 }
 
@@ -453,13 +478,13 @@ main {
     font-size: 20px;
     text-align: center;
     padding: 1.5vh 0;
-    border-top: 2px #2B0F14 solid;
+    border-top: 2px solid var(--vinho-escuro);
 }
 
 footer {
     width: 100%;
-    background-color: #66323B;
-    color: #FFB5C0;
+    background-color: #66323b;
+    color: var(--rosa-claro);
     font-family: "VT323", monospace;
 }
 
@@ -490,28 +515,19 @@ footer p {
     line-height: 38px;
 }
 
-footer small {
-    font-size: 15px;
-    opacity: 0.85;
-}
-
 footer .contador {
     font-family: "Press Start 2P", system-ui;
     font-size: 14px;
-    color: #EE1E52;
-    background-color: #2B0F14;
-    border: 2px #FFB5C0 solid;
+    color: var(--rosa);
+    background-color: var(--vinho-escuro);
+    border: 2px solid var(--rosa-claro);
     padding: 3px 10px;
     margin-bottom: 26px;
     letter-spacing: 1px;
 }
 
-footer .cursor_piscando {
-    animation: rodape-pisca 1s steps(1) infinite;
-}
-
 footer .rodape_copy {
-    border-top: 2px rgba(255, 181, 192, 0.35) solid;
+    border-top: 2px solid rgba(255, 181, 192, 0.35);
     padding: 2.5vh 0;
     text-align: center;
 }
@@ -529,68 +545,49 @@ footer .rodape_copy p {
     }
 }
 
-#cardapio_cookie main .bar_search_e_tals p{
+#cardapio_cookie main .bar_search_e_tals p {
     font-family: var(--fonte-Player);
-    color: #EE1E52;
+    color: var(--rosa);
     margin-top: 5vh;
     margin-left: 30vh;
     font-size: 23px;
 }
 
-#cardapio_cookie main .search_bar-div{
+#cardapio_cookie main .search_bar-div {
     display: flex;
 }
 
-#cardapio_cookie main .search_bar-div input{
+#cardapio_cookie main .search_bar-div input {
     margin-left: 30vh;
     margin-top: 3vh;
     height: 6vh;
     width: 45vh;
-    border: 2.5px black solid;
+    border: 2.5px solid black;
     font-family: var(--fonte-VT3);
     font-size: 18px;
     padding-left: 2vh;
 }
 
-#cardapio_cookie main .search_bar-div a:nth-last-of-type(2){
-    border: 2px black solid;
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(2),
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(1),
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(3) {
+    border: 2px solid black;
     box-shadow: 3px 3px 0 black;
     margin-left: 3vh;
     margin-top: 3vh;
     width: 15vh;
     height: 6vh;
-    background-color: #f9c5d1;
+    background-color: var(--rosa-bebe);
 }
 
-
-#cardapio_cookie main .search_bar-div a:nth-last-of-type(1){
-    border: 2px black solid;
+#cardapio_cookie main .search_bar-div a:nth-last-of-type(4) {
+    border: 2px solid black;
     box-shadow: 3px 3px 0 black;
     margin-left: 3vh;
     margin-top: 3vh;
     width: 15vh;
     height: 6vh;
-    background-color: #f9c5d1;
-}
-
-#cardapio_cookie main .search_bar-div a:nth-last-of-type(3){
-    border: 2px black solid;
-    box-shadow: 3px 3px 0 black;
-    margin-left: 3vh;
-    margin-top: 3vh;
-    width: 15vh;
-    height: 6vh;
-    background-color: #f9c5d1;
-}
-
-#cardapio_cookie main .search_bar-div a:nth-last-of-type(4){
-    border: 2px black solid;
-    box-shadow: 3px 3px 0 black;
-    margin-left: 3vh;
-    margin-top: 3vh;
-    width: 15vh;
-    height: 6vh;
-    background-color: #EE1E52;
+    background-color: var(--rosa);
 }
 
 /* botões de categoria do cardápio: o vermelho marca a categoria escolhida */
@@ -605,21 +602,18 @@ footer .rodape_copy p {
 }
 
 #cardapio_cookie main .search_bar-div a:not(.active) {
-    background-color: #f9c5d1;
+    background-color: var(--rosa-bebe);
 }
 
 #cardapio_cookie main .search_bar-div a.active {
-    background-color: #EE1E52;
+    background-color: var(--rosa);
     color: white;
 }
 
 /* cards que não batem com a busca */
-#cardapio_cookie main .card_cookie[hidden] {
-    display: none;
-}
 
-#cardapio_cookie main .mother_cookies .cookies{
-    box-sizing: border-box;   
+#cardapio_cookie main .mother_cookies .cookies {
+    box-sizing: border-box;
     width: 100%;
     margin-top: 4vh;
     padding: 4vh 0;
@@ -634,16 +628,16 @@ footer .rodape_copy p {
     width: 26vh;
     height: 50vh;
     background-color: white;
-    border: 2px #2B0F14 solid;
-    box-shadow: 5px 5px 0 #2B0F14;
+    border: 2px solid var(--vinho-escuro);
+    box-shadow: 5px 5px 0 var(--vinho-escuro);
     display: flex;
     flex-direction: column;
 }
 
 #cardapio_cookie main .card_img {
     height: 22vh;
-    background-color: #FFB5C0;
-    border-bottom: 2px #2B0F14 solid;
+    background-color: var(--rosa-claro);
+    border-bottom: 2px solid var(--vinho-escuro);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -666,8 +660,8 @@ footer .rodape_copy p {
 #cardapio_cookie main .card_tag {
     font-family: var(--fonte-VT3);
     font-size: 1.6vh;
-    background-color: #FFB5C0;
-    color: #2B0F14;
+    background-color: var(--rosa-claro);
+    color: var(--vinho-escuro);
     padding: 0.2vh 0.6vh;
 }
 
@@ -675,19 +669,19 @@ footer .rodape_copy p {
     font-family: var(--fonte-Player);
     font-size: 1.2vh;
     font-weight: normal;
-    color: #2B0F14;
+    color: var(--vinho-escuro);
 }
 
 #cardapio_cookie main .card_info p {
     font-family: var(--fonte-VT3);
     font-size: 1.9vh;
-    color: #5E2C35;
+    color: var(--vinho);
 }
 
 #cardapio_cookie main .card_preco {
     font-family: var(--fonte-VT3);
     font-size: 2.6vh;
-    color: #EE1E52;
+    color: var(--rosa);
 }
 
 #cardapio_cookie main .card_info a {
@@ -701,54 +695,21 @@ footer .rodape_copy p {
     font-family: var(--fonte-Player);
     font-size: 1.1vh;
     color: white;
-    background-color: #EE1E52;
-    border: 2px #2B0F14 solid;
-    box-shadow: 3px 3px 0 #2B0F14;
+    background-color: var(--rosa);
+    border: 2px solid var(--vinho-escuro);
+    box-shadow: 3px 3px 0 var(--vinho-escuro);
     cursor: pointer;
 }
 
 #cardapio_cookie main .card_info a:active {
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0 #2B0F14;
+    box-shadow: 1px 1px 0 var(--vinho-escuro);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ===== JOGO CHUVA DE COOKIES (tudo começa com cg- para não bater com o resto do site OBVIAMENTE FEITO COM IA) ===== */
-:root {
-    --cg-panel: #ffffff;
-    --cg-ink: #3b1a1f;
-    --cg-muted: #7d4a52;
-    --cg-pink: #ee2a5e;
-    --cg-pink-soft: #f9c5d1;
-    --cg-wine: #5a2a33;
-    --cg-wine-deep: #3d1c23;
-    --cg-cream: #fff3e6;
-    --cg-gold: #ffd23f;
-    --fonte-VT3: "VT323", "Courier New", ui-monospace, monospace;
-    --fonte-Player: "Press Start 2P", system-ui;
-}
 
 body.cg-travado {
-    overflow: hidden
+    overflow: hidden;
 }
 
 /* fundo escuro por trás da janela do jogo */
@@ -760,23 +721,23 @@ body.cg-travado {
     align-items: center;
     justify-content: center;
     padding: 12px;
-    background: rgba(15, 4, 8, .85);
+    background: rgba(15, 4, 8, 0.85);
     backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px)
+    -webkit-backdrop-filter: blur(3px);
 }
 
 #principal_page .cg-fundo[hidden],
 #principal_page .cg-fundo [hidden] {
-    display: none !important
+    display: none !important;
 }
 
 #principal_page .cg-fundo:not([hidden]) {
-    animation: cg-fade .2s ease-out
+    animation: cg-fade 0.2s ease-out;
 }
 
 @keyframes cg-fade {
     from {
-        opacity: 0
+        opacity: 0;
     }
 }
 
@@ -791,21 +752,21 @@ body.cg-travado {
     font-family: var(--cg-mono);
     font-size: 20px;
     color: var(--cg-ink);
-    box-sizing: border-box
 }
 
+#principal_page .cg-win,
 #principal_page .cg-win * {
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 #principal_page .cg-win.cg-in {
-    animation: cg-in .25s steps(5)
+    animation: cg-in 0.25s steps(5);
 }
 
 @keyframes cg-in {
     from {
-        transform: translateY(4%) scale(.9);
-        opacity: 0
+        transform: translateY(4%) scale(0.9);
+        opacity: 0;
     }
 }
 
@@ -814,12 +775,12 @@ body.cg-travado {
     color: var(--cg-cream);
     font-family: var(--cg-pixel);
     font-weight: 700;
-    font-size: .78rem;
-    letter-spacing: .08em;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 6px 5px 12px
+    padding: 5px 6px 5px 12px;
 }
 
 #principal_page .cg-x {
@@ -830,11 +791,11 @@ body.cg-travado {
     cursor: pointer;
     text-decoration: none;
     padding: 2px 8px;
-    letter-spacing: .06em
+    letter-spacing: 0.06em;
 }
 
 #principal_page .cg-x:hover {
-    background: var(--cg-pink)
+    background: var(--cg-pink);
 }
 
 #principal_page .cg-hud {
@@ -846,30 +807,30 @@ body.cg-travado {
     border-bottom: 3px solid var(--cg-wine-deep);
     background: var(--cg-cream);
     font-size: 1.15rem;
-    font-variant-numeric: tabular-nums
+    font-variant-numeric: tabular-nums;
 }
 
 #principal_page .cg-hud b {
     font-family: var(--cg-pixel);
-    font-size: .7rem;
-    letter-spacing: .1em;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
     color: var(--cg-muted);
-    margin-right: 6px
+    margin-right: 6px;
 }
 
 #principal_page .cg-hearts {
     color: var(--cg-pink);
-    letter-spacing: .15em;
-    font-size: 1.25rem
+    letter-spacing: 0.15em;
+    font-size: 1.25rem;
 }
 
 #principal_page .cg-hearts .off {
-    color: var(--cg-pink-soft)
+    color: var(--cg-pink-soft);
 }
 
 #principal_page .cg-stage {
     position: relative;
-    background: var(--cg-wine)
+    background: var(--cg-wine);
 }
 
 #principal_page .cg-canvas {
@@ -881,7 +842,7 @@ body.cg-travado {
     image-rendering: crisp-edges;
     touch-action: none;
     cursor: none;
-    outline: none
+    outline: none;
 }
 
 #principal_page .cg-over {
@@ -894,8 +855,8 @@ body.cg-travado {
     gap: 12px;
     text-align: center;
     padding: 16px;
-    background: rgba(25, 8, 12, .85);
-    color: var(--cg-cream)
+    background: rgba(25, 8, 12, 0.85);
+    color: var(--cg-cream);
 }
 
 #principal_page .cg-over h3 {
@@ -906,14 +867,14 @@ body.cg-travado {
     margin: 0;
     line-height: 1;
     text-shadow: 3px 3px 0 #000;
-    text-transform: uppercase
+    text-transform: uppercase;
 }
 
 #principal_page .cg-over p {
     margin: 0;
     font-size: 1.2rem;
     line-height: 1.2;
-    max-width: 30ch
+    max-width: 30ch;
 }
 
 #principal_page .cg-legend {
@@ -921,33 +882,33 @@ body.cg-travado {
     gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
-    font-size: 1.05rem
+    font-size: 1.05rem;
 }
 
 #principal_page .cg-legend span {
     display: flex;
     align-items: center;
-    gap: 6px
+    gap: 6px;
 }
 
 #principal_page .cg-legend canvas {
     width: 24px;
     height: 24px;
-    image-rendering: pixelated
+    image-rendering: pixelated;
 }
 
 #principal_page .cg-btns {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-    justify-content: center
+    justify-content: center;
 }
 
 #principal_page .cg-btn {
     font-family: var(--cg-pixel);
     font-weight: 700;
-    font-size: .82rem;
-    letter-spacing: .07em;
+    font-size: 0.82rem;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     cursor: pointer;
     padding: 10px 16px;
@@ -957,56 +918,54 @@ body.cg-travado {
     box-shadow: 4px 4px 0 #000;
     border-radius: 0;
     text-decoration: none;
-    display: inline-block
+    display: inline-block;
 }
 
 #principal_page .cg-btn.cg-ghost {
     background: var(--cg-pink-soft);
-    color: var(--cg-wine-deep)
+    color: var(--cg-wine-deep);
 }
 
 #principal_page .cg-btn:active {
     transform: translate(3px, 3px);
-    box-shadow: 1px 1px 0 #000
+    box-shadow: 1px 1px 0 #000;
 }
 
 #principal_page .cg-btn:focus-visible,
 #principal_page .cg-x:focus-visible {
     outline: 3px dashed var(--cg-gold);
-    outline-offset: 3px
+    outline-offset: 3px;
 }
 
 #principal_page .cg-record {
     font-family: var(--cg-pixel);
     font-weight: 700;
     color: var(--cg-gold);
-    letter-spacing: .1em;
-    font-size: .85rem;
-    animation: cg-blink 1s steps(1) infinite
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    animation: cg-blink 1s steps(1) infinite;
 }
 
 #principal_page .cg-help {
     font-size: 1rem;
-    opacity: .8
+    opacity: 0.8;
 }
 
 @keyframes cg-blink {
     50% {
-        opacity: 0
+        opacity: 0;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-
     .cg-win.cg-in,
     .cg-record,
     .cg-fundo:not([hidden]) {
-        animation: none
+        animation: none;
     }
 }
 
 @media (max-width: 700px) {
-
     header .header_all {
         display: flex;
         flex-direction: column;
@@ -1076,7 +1035,8 @@ body.cg-travado {
         margin-top: 56px;
     }
 
-    #principal_page .mais_vendidos p {
+    #principal_page .mais_vendidos p,
+    #cardapio_cookie main .bar_search_e_tals p {
         margin-left: 24px;
     }
 
@@ -1097,9 +1057,6 @@ body.cg-travado {
     }
 
     /* Cardápio */
-    #cardapio_cookie main .bar_search_e_tals p {
-        margin-left: 24px;
-    }
 
     #cardapio_cookie main .search_bar-div {
         flex-wrap: wrap;
@@ -1252,7 +1209,7 @@ body.cg-travado {
         order: -1;
         width: 100%;
         height: 200px;
-        border-bottom: 2px black solid;
+        border-bottom: 2px solid black;
     }
 
     #principal_page #body_site .first_banner .text_banner {
@@ -1352,7 +1309,7 @@ body.cg-travado {
     #principal_page .biscoito_3d .janela_3d {
         width: 100%;
         max-width: 400px;
-        box-shadow: 5px 5px 0 #2B0F14;
+        box-shadow: 5px 5px 0 var(--vinho-escuro);
     }
 
     #principal_page .biscoito_3d .cookie-3d {
@@ -1402,7 +1359,7 @@ body.cg-travado {
 
     #cardapio_cookie main .card_cookie {
         min-height: 0;
-        box-shadow: 4px 4px 0 #2B0F14;
+        box-shadow: 4px 4px 0 var(--vinho-escuro);
     }
 
     #cardapio_cookie main .card_img {
@@ -1439,7 +1396,6 @@ body.cg-travado {
 
 /* Celulares bem pequenos */
 @media (max-width: 380px) {
-
     #cardapio_cookie main .mother_cookies .cookies,
     #principal_page .mais_vendidos .produtos {
         grid-template-columns: 1fr;
@@ -1447,8 +1403,7 @@ body.cg-travado {
 }
 
 /* ===== PÁGINAS INTERNAS (perfil, pedidos, login, cadastro, carrinho) ===== */
-input,
-select {
+input {
     user-select: text;
 }
 
@@ -1460,31 +1415,23 @@ select {
 
 .titulo_pagina {
     font-family: var(--fonte-Player);
-    color: #EE1E52;
+    color: var(--rosa);
     font-size: 23px;
-    margin-bottom: 4vh;
-}
-
-.subtitulo_pagina {
-    font-family: var(--fonte-VT3);
-    font-size: 22px;
-    color: #5E2C35;
-    margin-top: -2vh;
     margin-bottom: 4vh;
 }
 
 /* janela no estilo do banner da página inicial */
 .janela {
     background-color: white;
-    border: 2px #2B0F14 solid;
-    box-shadow: 6px 6px 0 #2B0F14;
+    border: 2px solid var(--vinho-escuro);
+    box-shadow: 6px 6px 0 var(--vinho-escuro);
     margin-bottom: 4vh;
 }
 
 .janela .window_bar {
     min-height: 32px;
-    background-color: #5E2C35;
-    color: #FFB5C0;
+    background-color: var(--vinho);
+    color: var(--rosa-claro);
     font-family: var(--fonte-Player);
     font-size: 10px;
     display: flex;
@@ -1494,7 +1441,7 @@ select {
 }
 
 .janela .window_bar a {
-    color: #FFB5C0;
+    color: var(--rosa-claro);
     text-decoration: none;
 }
 
@@ -1509,36 +1456,38 @@ select {
 
 /* lugar reservado para colocar uma imagem depois */
 .espaco_imagem {
-    box-sizing: border-box;
-    background-color: #FFB5C0;
-    border: 2px dashed #5E2C35;
+    background-color: var(--rosa-claro);
+    border: 2px dashed var(--vinho);
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
     padding: 8px;
     font-family: var(--fonte-VT3);
     font-size: 18px;
-    color: #5E2C35;
+    color: var(--vinho);
+}
+
+.espaco_imagem,
+.botao {
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .botao {
     display: inline-block;
-    box-sizing: border-box;
-    text-align: center;
     text-decoration: none;
     font-family: var(--fonte-Player);
     font-size: 11px;
     padding: 14px 18px;
     color: white;
-    background-color: #EE1E52;
-    border: 2px black solid;
+    background-color: var(--rosa);
+    border: 2px solid black;
     box-shadow: 3px 3px 0 black;
     cursor: pointer;
 }
 
 .botao.claro {
-    background-color: #FFB5C0;
+    background-color: var(--rosa-claro);
     color: black;
 }
 
@@ -1566,16 +1515,15 @@ select {
 .campo label {
     font-family: var(--fonte-Player);
     font-size: 9px;
-    color: #5E2C35;
+    color: var(--vinho);
 }
 
-.campo input,
-.campo select {
+.campo input {
     box-sizing: border-box;
     height: 44px;
     padding: 0 12px;
-    background-color: #FFFAFA;
-    border: 2px black solid;
+    background-color: var(--fundo);
+    border: 2px solid black;
     border-radius: 0;
     font-family: var(--fonte-VT3);
     font-size: 20px;
@@ -1584,13 +1532,12 @@ select {
 
 .campo input:disabled {
     background-color: white;
-    border-color: #C9A0A8;
-    color: #2B0F14;
+    border-color: #c9a0a8;
+    color: var(--vinho-escuro);
 }
 
-.campo input:focus,
-.campo select:focus {
-    outline: 2px #EE1E52 solid;
+.campo input:focus {
+    outline: 2px var(--rosa) solid;
     outline-offset: 2px;
 }
 
@@ -1604,11 +1551,11 @@ select {
 .texto_pequeno {
     font-family: var(--fonte-VT3);
     font-size: 19px;
-    color: #5E2C35;
+    color: var(--vinho);
 }
 
 .texto_pequeno a {
-    color: #EE1E52;
+    color: var(--rosa);
 }
 
 .etiqueta {
@@ -1616,21 +1563,21 @@ select {
     font-family: var(--fonte-VT3);
     font-size: 17px;
     padding: 1px 8px;
-    border: 2px #2B0F14 solid;
-    background-color: #FFB5C0;
-    color: #2B0F14;
+    border: 2px solid var(--vinho-escuro);
+    background-color: var(--rosa-claro);
+    color: var(--vinho-escuro);
 }
 
 .etiqueta.andamento {
-    background-color: #F2E08A;
+    background-color: #f2e08a;
 }
 
 .etiqueta.entregue {
-    background-color: #B8E0B0;
+    background-color: #b8e0b0;
 }
 
 .etiqueta.cancelado {
-    background-color: #DDD;
+    background-color: #ddd;
 }
 
 /* ===== PERFIL ===== */
@@ -1651,14 +1598,14 @@ select {
     font-family: var(--fonte-Player);
     font-size: 14px;
     font-weight: normal;
-    color: #2B0F14;
+    color: var(--vinho-escuro);
     line-height: 1.5;
 }
 
 .perfil_usuario .email {
     font-family: var(--fonte-VT3);
     font-size: 20px;
-    color: #5E2C35;
+    color: var(--vinho);
     margin-top: 6px;
     word-break: break-all;
 }
@@ -1666,14 +1613,14 @@ select {
 .perfil_numeros {
     list-style: none;
     margin-top: 20px;
-    border-top: 2px #2B0F14 solid;
+    border-top: 2px solid var(--vinho-escuro);
 }
 
 .perfil_numeros li {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 2px dashed #FFB5C0;
+    border-bottom: 2px dashed var(--rosa-claro);
     font-family: var(--fonte-VT3);
     font-size: 20px;
 }
@@ -1681,7 +1628,7 @@ select {
 .perfil_numeros li span:last-child {
     font-family: var(--fonte-Player);
     font-size: 12px;
-    color: #EE1E52;
+    color: var(--rosa);
 }
 
 .perfil_usuario .botao {
@@ -1691,41 +1638,6 @@ select {
 
 .botoes_perfil {
     margin: -1vh 0 5vh;
-}
-
-.favoritos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.favorito {
-    border: 2px #2B0F14 solid;
-    display: flex;
-    flex-direction: column;
-}
-
-.favorito .espaco_imagem {
-    height: 110px;
-    border: none;
-    border-bottom: 2px #2B0F14 solid;
-}
-
-.favorito div:last-child {
-    padding: 10px;
-}
-
-.favorito h3 {
-    font-family: var(--fonte-Player);
-    font-size: 9px;
-    font-weight: normal;
-    line-height: 1.5;
-}
-
-.favorito p {
-    font-family: var(--fonte-VT3);
-    font-size: 20px;
-    color: #EE1E52;
 }
 
 .tabela {
@@ -1740,14 +1652,14 @@ select {
     font-size: 9px;
     font-weight: normal;
     text-align: left;
-    color: #5E2C35;
+    color: var(--vinho);
     padding: 0 8px 10px;
-    border-bottom: 2px #2B0F14 solid;
+    border-bottom: 2px solid var(--vinho-escuro);
 }
 
 .tabela td {
     padding: 10px 8px;
-    border-bottom: 2px dashed #FFB5C0;
+    border-bottom: 2px dashed var(--rosa-claro);
 }
 
 /* ===== PEDIDOS ===== */
@@ -1764,13 +1676,13 @@ select {
     text-decoration: none;
     color: black;
     padding: 12px 16px;
-    background-color: #FFB5C0;
-    border: 2px black solid;
+    background-color: var(--rosa-claro);
+    border: 2px solid black;
     box-shadow: 3px 3px 0 black;
 }
 
 .filtros a.active {
-    background-color: #EE1E52;
+    background-color: var(--rosa);
     color: white;
 }
 
@@ -1791,21 +1703,21 @@ select {
     display: flex;
     justify-content: space-between;
     padding: 6px 0;
-    border-bottom: 2px dashed #FFB5C0;
+    border-bottom: 2px dashed var(--rosa-claro);
 }
 
 .pedido_lado {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    border-left: 2px #2B0F14 solid;
+    border-left: 2px solid var(--vinho-escuro);
     padding-left: 24px;
 }
 
 .pedido_total {
     font-family: var(--fonte-VT3);
     font-size: 18px;
-    color: #5E2C35;
+    color: var(--vinho);
 }
 
 .pedido_total strong {
@@ -1813,7 +1725,7 @@ select {
     font-family: var(--fonte-Player);
     font-weight: normal;
     font-size: 16px;
-    color: #EE1E52;
+    color: var(--rosa);
     margin-top: 6px;
 }
 
@@ -1827,7 +1739,7 @@ select {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     margin-top: 20px;
-    border: 2px #2B0F14 solid;
+    border: 2px solid var(--vinho-escuro);
 }
 
 .etapas span {
@@ -1836,8 +1748,8 @@ select {
     text-align: center;
     padding: 10px 4px;
     background-color: white;
-    color: #5E2C35;
-    border-right: 2px #2B0F14 solid;
+    color: var(--vinho);
+    border-right: 2px solid var(--vinho-escuro);
 }
 
 .etapas span:last-child {
@@ -1845,12 +1757,12 @@ select {
 }
 
 .etapas span.feita {
-    background-color: #EE1E52;
+    background-color: var(--rosa);
     color: white;
 }
 
 .etapas span.atual {
-    background-color: #FFB5C0;
+    background-color: var(--rosa-claro);
     color: black;
 }
 
@@ -1874,7 +1786,7 @@ select {
 
 .janela_acesso .espaco_imagem {
     border: none;
-    border-right: 2px #2B0F14 solid;
+    border-right: 2px solid var(--vinho-escuro);
     min-height: 420px;
 }
 
@@ -1888,7 +1800,7 @@ select {
 .janela_acesso h1 {
     font-family: var(--fonte-Player);
     font-size: 18px;
-    color: #EE1E52;
+    color: var(--rosa);
     line-height: 1.4;
 }
 
@@ -1907,14 +1819,14 @@ select {
 .lembrar input {
     width: 18px;
     height: 18px;
-    accent-color: #EE1E52;
+    accent-color: var(--rosa);
 }
 
 .aviso_erro {
     font-family: var(--fonte-VT3);
     font-size: 19px;
     color: white;
-    background-color: #EE1E52;
+    background-color: var(--rosa);
     padding: 4px 10px;
 }
 
@@ -1932,7 +1844,7 @@ select {
     gap: 18px;
     align-items: center;
     padding: 16px 0;
-    border-bottom: 2px dashed #FFB5C0;
+    border-bottom: 2px dashed var(--rosa-claro);
 }
 
 .item_carrinho:first-child {
@@ -1962,47 +1874,48 @@ select {
 .item_carrinho p {
     font-family: var(--fonte-VT3);
     font-size: 20px;
-    color: #EE1E52;
+    color: var(--rosa);
 }
 
 .quantidade {
     display: flex;
-    border: 2px black solid;
+    border: 2px solid black;
 }
 
 .quantidade a {
     width: 34px;
     height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFB5C0;
+    background-color: var(--rosa-claro);
     color: black;
     text-decoration: none;
     font-family: var(--fonte-Player);
     font-size: 12px;
 }
 
+.quantidade a,
 .quantidade span {
-    width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.quantidade span {
+    width: 40px;
     font-family: var(--fonte-VT3);
     font-size: 22px;
-    border-left: 2px black solid;
-    border-right: 2px black solid;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
 }
 
 .remover {
     font-family: var(--fonte-Player);
     font-size: 10px;
-    color: #5E2C35;
+    color: var(--vinho);
     text-decoration: none;
 }
 
 .remover:hover {
-    color: #EE1E52;
+    color: var(--rosa);
 }
 
 .resumo li {
@@ -2017,10 +1930,10 @@ select {
 .resumo li.total {
     margin-top: 10px;
     padding-top: 14px;
-    border-top: 2px #2B0F14 solid;
+    border-top: 2px solid var(--vinho-escuro);
     font-family: var(--fonte-Player);
     font-size: 13px;
-    color: #EE1E52;
+    color: var(--rosa);
 }
 
 .resumo .cupom {
@@ -2035,7 +1948,7 @@ select {
     height: 40px;
     box-sizing: border-box;
     padding: 0 10px;
-    border: 2px black solid;
+    border: 2px solid black;
     font-family: var(--fonte-VT3);
     font-size: 19px;
 }
@@ -2056,10 +1969,7 @@ select {
     }
 
     .perfil_grid,
-    .carrinho_grid {
-        grid-template-columns: 1fr;
-    }
-
+    .carrinho_grid,
     .janela_acesso .acesso_conteudo {
         grid-template-columns: 1fr;
     }
@@ -2067,7 +1977,7 @@ select {
     .janela_acesso .espaco_imagem {
         min-height: 180px;
         border-right: none;
-        border-bottom: 2px #2B0F14 solid;
+        border-bottom: 2px solid var(--vinho-escuro);
     }
 }
 
@@ -2076,8 +1986,7 @@ select {
         font-size: 18px;
     }
 
-    .campos,
-    .favoritos {
+    .campos {
         grid-template-columns: 1fr;
     }
 
@@ -2095,7 +2004,7 @@ select {
 
     .pedido_lado {
         border-left: none;
-        border-top: 2px #2B0F14 solid;
+        border-top: 2px solid var(--vinho-escuro);
         padding: 16px 0 0;
     }
 
@@ -2118,4 +2027,16 @@ select {
     .tabela td:nth-child(2) {
         display: none;
     }
+}
+
+/* ===== MODO ESCURO (botão de lua/sol do cabeçalho, ver cabecalho.js) ===== */
+/* inverte as cores do site inteiro; as imagens são invertidas de novo para ficarem normais */
+html.escuro {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+html.escuro img,
+html.escuro canvas,
+html.escuro model-viewer {
+    filter: invert(1) hue-rotate(180deg);
 }
